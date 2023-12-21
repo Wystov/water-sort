@@ -1,0 +1,15 @@
+.bottle {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column-reverse;
+  margin: 5px;
+  width: 80px;
+  height: 180px;
+  background-color: transparent;
+  border: 2px solid #ccc;
+
+  & .fill {
+    max-height: 25%;
+    flex-grow: 1;
+  }
+}
