@@ -1,6 +1,6 @@
 import { AnimationType } from '@/types';
 
-export const pourOut = (
+export const moveBottle = (
   fromBottle: HTMLDivElement,
   toBottle: HTMLDivElement
 ): AnimationType => {
@@ -10,7 +10,7 @@ export const pourOut = (
 
   const c = {
     x: Math.abs(to.x - from.x) - width / 2,
-    y: Math.abs(to.y - from.y) - height / 3,
+    y: Math.abs(to.y - from.y) - height / 5,
     rotate: [45, 90],
     transformOrigin: 'top right',
   };
@@ -44,7 +44,7 @@ export const pourOut = (
     },
   ];
   const options: KeyframeAnimationOptions = {
-    duration: 1000,
+    duration: 800,
     fill: 'forwards',
   };
 

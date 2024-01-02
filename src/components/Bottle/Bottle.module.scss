@@ -2,14 +2,18 @@
   cursor: pointer;
   display: flex;
   flex-direction: column-reverse;
-  margin: 5px;
-  width: 80px;
-  height: 180px;
+  margin: 25px;
+  width: 60px;
+  height: 280px;
   background-color: transparent;
-  border: 2px solid #ccc;
+  padding-top: 20px;
+  border: 5px solid #94a1b2;
+  border-top: none;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  overflow: hidden;
 
   & .fill {
-    max-height: 25%;
     flex-grow: 1;
   }
 }

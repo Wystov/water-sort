@@ -9,9 +9,11 @@ export type BottleProps = {
   handleBottleClick: handleBottleClickType;
 };
 
-export type ColorsType = 'red' | 'green' | 'blue';
+export type ColorsType = '#f9bc60' | '#abd1c6' | '#e16162';
 
 export type BottleType = Array<ColorsType | null>;
+
+export type BottleColorsCountType = { color: ColorsType; count: number };
 
 export type AnimationType = [Keyframe[], KeyframeAnimationOptions];
 

@@ -4,8 +4,7 @@ import { Bottle } from '@/components/Bottle';
 import { BOTTLE_PARTS, BOTTLES_COUNT, COLORS } from '@/constants';
 import { BottleType, handleBottleClickType, pourFromType } from '@/types';
 import { handleAnimation } from '@/utils/animations/handleAnimation';
-// import { pourIn } from '@/utils/animations/pourIn';
-import { pourOut } from '@/utils/animations/pourOut';
+import { moveBottle } from '@/utils/animations/moveBottle';
 import { select } from '@/utils/animations/select';
 import { isPourAllowed } from '@/utils/isPourAllowed';
 import { shuffleArray } from '@/utils/shuffleArray';
@@ -49,7 +48,7 @@ export const App = () => {
       }
 
       if (!isAnimated) {
-        handleAnimation(fromElement, pourOut(fromElement, clickedElement));
+        handleAnimation(fromElement, moveBottle(fromElement, clickedElement));
         isAnimated = true;
       }
 
@@ -70,6 +69,12 @@ export const App = () => {
           handleBottleClick={handleBottleClick}
         />
       ))}
+      <button
+        onClick={() => setBottles(initBottles())}
+        style={{ position: 'absolute', left: 20, top: 20 }}
+      >
+        Reset
+      </button>
     </div>
   );
 };
