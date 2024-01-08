@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { Bottle } from '@/components/Bottle';
 import {
@@ -17,15 +17,9 @@ export const Game = ({
   settings: { lvl, bottleParts, bottlesCount },
   setSettings,
 }: GameProps) => {
-  const [bottles, setBottles] = useState<BottleType[]>(
+  const [bottles, setBottles] = useState<BottleType[]>(() =>
     createLvlData(bottleParts, bottlesCount)
   );
-
-  useEffect(() => {
-    const generateNewLvl = () =>
-      setBottles(createLvlData(bottleParts, bottlesCount));
-    generateNewLvl();
-  }, [lvl, bottleParts, bottlesCount]);
 
   const isWon = bottles.every(
     (bottle) =>
@@ -33,46 +27,49 @@ export const Game = ({
       (bottle.length === bottleParts &&
         bottle.every((color) => color === bottle[0]))
   );
-  console.log(isWon);
-  const [pourFrom, setPourFrom] = useState<pourFromType>(null);
+
+  const pourFrom = useRef<pourFromType>(null);
 
   const handleWin = () => {
     setSettings((prev) => ({ ...prev, lvl: prev.lvl + 1 }));
+    setBottles(createLvlData(bottleParts, bottlesCount));
   };
 
   const handleBottleClick: handleBottleClickType = (clicked, bottleRef) => {
     const clickedElement = bottleRef.current;
     if (!clickedElement) return;
 
-    if (pourFrom === null && bottles[clicked].length) {
+    if (pourFrom.current === null && bottles[clicked].length) {
       handleAnimation(clickedElement, select());
-      setPourFrom({ i: clicked, element: clickedElement });
+      pourFrom.current = { i: clicked, element: clickedElement };
       return;
     }
 
-    const fromElement = pourFrom?.element;
+    const fromElement = pourFrom?.current?.element;
     if (!fromElement) return;
 
     const newBottles = [...bottles];
-    let isAnimated = false;
+    let isBottlesChanged = false;
 
-    while (pourFrom !== null) {
-      if (!isPourAllowed(pourFrom.i, clicked, newBottles, bottleParts)) {
-        !isAnimated && handleAnimation(fromElement, select('reverse'));
-        setPourFrom(null);
-        return;
+    while (pourFrom.current !== null) {
+      if (
+        !isPourAllowed(pourFrom.current.i, clicked, newBottles, bottleParts)
+      ) {
+        !isBottlesChanged && handleAnimation(fromElement, select('reverse'));
+        pourFrom.current = null;
+        break;
       }
 
-      if (!isAnimated) {
+      if (!isBottlesChanged) {
         handleAnimation(fromElement, moveBottle(fromElement, clickedElement));
-        isAnimated = true;
+        isBottlesChanged = true;
       }
 
-      const moved = newBottles[pourFrom.i].pop();
+      const moved = newBottles[pourFrom.current.i].pop();
       newBottles[clicked].push(moved ?? null);
     }
 
-    setBottles(newBottles);
+    isBottlesChanged && setBottles(newBottles);
   };
 
   return (

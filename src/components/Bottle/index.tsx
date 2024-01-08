@@ -12,7 +12,6 @@ export const Bottle = ({
   handleBottleClick,
 }: BottleProps) => {
   const bottleRef = useRef<HTMLDivElement | null>(null);
-  console.log(`Bottle ${i} rendered`);
 
   const bottleWithCount = bottle.reduce((acc, color) => {
     if (!color) return acc;
