@@ -6,6 +6,7 @@ export type handleBottleClickType = (
 export type BottleProps = {
   i: number;
   bottle: BottleType;
+  bottleParts: number;
   handleBottleClick: handleBottleClickType;
 };
 
@@ -23,3 +24,15 @@ type ClickedBottleType = {
 };
 
 export type pourFromType = ClickedBottleType | null;
+
+export type SettingsType = {
+  lvl: number;
+  colors: number;
+  bottleParts: number;
+  bottlesCount: number;
+};
+
+export type GameProps = {
+  settings: SettingsType;
+  setSettings: React.Dispatch<React.SetStateAction<SettingsType>>;
+};

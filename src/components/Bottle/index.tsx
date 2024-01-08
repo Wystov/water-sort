@@ -1,13 +1,18 @@
 import { useRef } from 'react';
 import { AnimatePresence, m } from 'framer-motion';
 
-import { BOTTLE_PARTS } from '@/constants';
 import { BottleColorsCountType, BottleProps } from '@/types';
 
 import style from './Bottle.module.scss';
 
-export const Bottle = ({ i, bottle, handleBottleClick }: BottleProps) => {
+export const Bottle = ({
+  i,
+  bottle,
+  bottleParts,
+  handleBottleClick,
+}: BottleProps) => {
   const bottleRef = useRef<HTMLDivElement | null>(null);
+  console.log(`Bottle ${i} rendered`);
 
   const bottleWithCount = bottle.reduce((acc, color) => {
     if (!color) return acc;
@@ -38,7 +43,7 @@ export const Bottle = ({ i, bottle, handleBottleClick }: BottleProps) => {
                 key={j}
                 transition={{ duration: 0.5 }}
                 initial={{ maxHeight: '0%' }}
-                animate={{ maxHeight: `${(100 / BOTTLE_PARTS) * count}%` }}
+                animate={{ maxHeight: `${(100 / bottleParts) * count}%` }}
                 exit={{ maxHeight: '0%' }}
               />
             )
