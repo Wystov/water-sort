@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { Bottle } from '@/components/Bottle';
 import {
@@ -30,9 +30,26 @@ export const Game = ({
 
   const pourFrom = useRef<pourFromType>(null);
 
+  const resetPourFrom = () => {
+    if (pourFrom.current) {
+      handleAnimation(pourFrom.current.element, select('reverse'));
+      pourFrom.current = null;
+    }
+  };
+
+  useEffect(() => {
+    setBottles(createLvlData(bottleParts, bottlesCount));
+
+    return resetPourFrom();
+  }, [lvl, bottleParts, bottlesCount]);
+
   const handleWin = () => {
     setSettings((prev) => ({ ...prev, lvl: prev.lvl + 1 }));
+  };
+
+  const handleReset = () => {
     setBottles(createLvlData(bottleParts, bottlesCount));
+    resetPourFrom();
   };
 
   const handleBottleClick: handleBottleClickType = (clicked, bottleRef) => {
@@ -55,8 +72,7 @@ export const Game = ({
       if (
         !isPourAllowed(pourFrom.current.i, clicked, newBottles, bottleParts)
       ) {
-        !isBottlesChanged && handleAnimation(fromElement, select('reverse'));
-        pourFrom.current = null;
+        !isBottlesChanged && resetPourFrom();
         break;
       }
 
@@ -86,7 +102,7 @@ export const Game = ({
           />
         ))}
         <button
-          onClick={() => setBottles(createLvlData(bottleParts, bottlesCount))}
+          onClick={handleReset}
           style={{ position: 'absolute', left: 20, top: 20 }}
         >
           Reset
