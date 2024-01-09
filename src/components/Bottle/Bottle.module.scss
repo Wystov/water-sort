@@ -16,4 +16,11 @@
   & .fill {
     flex-grow: 1;
   }
+
+  @media (max-width: 700px) {
+    margin: 15px;
+    width: 30px;
+    height: 140px;
+    border-width: 3px;
+  }
 }
