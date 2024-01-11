@@ -32,7 +32,4 @@ export type SettingsType = {
   bottlesCount: number;
 };
 
-export type GameProps = {
-  settings: SettingsType;
-  setSettings: React.Dispatch<React.SetStateAction<SettingsType>>;
-};
+export type SetSettingsParams = Omit<SettingsType, 'lvl'>;

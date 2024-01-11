@@ -1,25 +1,16 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
+import { observer } from 'mobx-react-lite';
 
 import { Bottle } from '@/components/Bottle';
-import {
-  BottleType,
-  GameProps,
-  handleBottleClickType,
-  pourFromType,
-} from '@/types';
+import { game } from '@/store';
+import { handleBottleClickType, pourFromType } from '@/types';
 import { handleAnimation } from '@/utils/animations/handleAnimation';
 import { moveBottle } from '@/utils/animations/moveBottle';
 import { select } from '@/utils/animations/select';
-import { createLvlData } from '@/utils/createLvlData';
 import { isPourAllowed } from '@/utils/isPourAllowed';
 
-export const Game = ({
-  settings: { lvl, bottleParts, bottlesCount },
-  setSettings,
-}: GameProps) => {
-  const [bottles, setBottles] = useState<BottleType[]>(() =>
-    createLvlData(bottleParts, bottlesCount)
-  );
+export const Game = observer(() => {
+  const { bottleParts, lvl, bottles } = game;
 
   const isWon = bottles.every(
     (bottle) =>
@@ -37,19 +28,13 @@ export const Game = ({
     }
   };
 
-  useEffect(() => {
-    setBottles(createLvlData(bottleParts, bottlesCount));
-
-    return resetPourFrom();
-  }, [lvl, bottleParts, bottlesCount]);
-
   const handleWin = () => {
-    setSettings((prev) => ({ ...prev, lvl: prev.lvl + 1 }));
+    game.setLvl(lvl + 1);
   };
 
   const handleReset = () => {
-    setBottles(createLvlData(bottleParts, bottlesCount));
     resetPourFrom();
+    game.setBottles();
   };
 
   const handleBottleClick: handleBottleClickType = (clicked, bottleRef) => {
@@ -66,6 +51,7 @@ export const Game = ({
     if (!fromElement) return;
 
     const newBottles = [...bottles];
+
     let isBottlesChanged = false;
 
     while (pourFrom.current !== null) {
@@ -80,12 +66,11 @@ export const Game = ({
         handleAnimation(fromElement, moveBottle(fromElement, clickedElement));
         isBottlesChanged = true;
       }
-
-      const moved = newBottles[pourFrom.current.i].pop();
-      newBottles[clicked].push(moved ?? null);
+      game.moveWater(pourFrom.current.i, clicked);
     }
 
-    isBottlesChanged && setBottles(newBottles);
+    isBottlesChanged && game.setBottles(newBottles);
+    pourFrom.current = null;
   };
 
   return (
@@ -103,7 +88,7 @@ export const Game = ({
         ))}
         <button
           onClick={handleReset}
-          style={{ position: 'absolute', left: 20, top: 20 }}
+          style={{ position: 'absolute', left: 20, top: 150 }}
         >
           Reset
         </button>
@@ -111,4 +96,4 @@ export const Game = ({
       {isWon && <button onClick={handleWin}>Next lvl</button>}
     </div>
   );
-};
+});

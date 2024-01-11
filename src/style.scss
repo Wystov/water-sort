@@ -8,6 +8,7 @@ body {
   width: 100%;
   display: grid;
   place-items: center;
+  grid-template-rows: 75px 1fr;
   background-color: #16161a;
 }
 

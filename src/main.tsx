@@ -1,15 +1,16 @@
 import { StrictMode } from 'react';
 import { domAnimation, LazyMotion } from 'framer-motion';
 import ReactDOM from 'react-dom/client';
+import { RouterProvider } from 'react-router-dom';
 
-import { App } from './App';
+import { router } from './router';
 
 import './style.scss';
 
 ReactDOM.createRoot(document.querySelector('.app')!).render(
   <StrictMode>
     <LazyMotion features={domAnimation} strict>
-      <App />
+      <RouterProvider router={router} />
     </LazyMotion>
   </StrictMode>
 );

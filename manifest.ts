@@ -2,7 +2,7 @@ import { VitePWAOptions } from 'vite-plugin-pwa';
 
 export const manifestForPlugIn: Partial<VitePWAOptions> = {
   registerType: 'prompt',
-  includeAssets: ['favicon.ico', 'apple-touc-icon.png', 'masked-icon.svg'],
+  includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'maskable_icon.png'],
   manifest: {
     name: 'Water sort',
     short_name: 'Water sort',
