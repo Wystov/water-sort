@@ -8,7 +8,11 @@ class Game {
   colors = 3;
   bottleParts = 4;
   bottlesCount = 5;
-  bottles: BottleType[] = createLvlData(this.bottleParts, this.bottlesCount);
+  bottles: BottleType[] = createLvlData(
+    this.bottleParts,
+    this.bottlesCount,
+    this.colors
+  );
 
   constructor() {
     makeAutoObservable(this);
@@ -21,7 +25,8 @@ class Game {
 
   setBottles(bottles?: BottleType[]) {
     this.bottles =
-      bottles ?? createLvlData(this.bottleParts, this.bottlesCount);
+      bottles ??
+      createLvlData(this.bottleParts, this.bottlesCount, this.colors);
   }
 
   setSettings({ colors, bottleParts, bottlesCount }: SetSettingsParams) {

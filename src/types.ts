@@ -10,7 +10,15 @@ export type BottleProps = {
   handleBottleClick: handleBottleClickType;
 };
 
-export type ColorsType = '#f9bc60' | '#abd1c6' | '#e16162';
+export type ColorsType =
+  | '#f9bc60'
+  | '#abd1c6'
+  | '#e16162'
+  | '#a786df'
+  | '#ffa8ba'
+  | '#6246ea'
+  | '#078080'
+  | '#00214d';
 
 export type BottleType = Array<ColorsType | null>;
 
