@@ -1,6 +1,9 @@
 import { useRef } from 'react';
 import { observer } from 'mobx-react-lite';
 
+import { ArrowPathIcon } from '@heroicons/react/24/outline';
+import { ForwardIcon } from '@heroicons/react/24/outline';
+
 import { Bottle } from '@/components/Bottle';
 import { game } from '@/store';
 import { handleBottleClickType, pourFromType } from '@/types';
@@ -8,6 +11,8 @@ import { handleAnimation } from '@/utils/animations/handleAnimation';
 import { moveBottle } from '@/utils/animations/moveBottle';
 import { select } from '@/utils/animations/select';
 import { isPourAllowed } from '@/utils/isPourAllowed';
+
+import style from './style.module.scss';
 
 export const Game = observer(() => {
   const { bottleParts, lvl, bottles } = game;
@@ -74,9 +79,19 @@ export const Game = observer(() => {
   };
 
   return (
-    <div>
+    <main>
       <h1 style={{ textAlign: 'center' }}>Lvl {lvl}</h1>
-      <div className="field">
+      <div className={style.controls}>
+        <button onClick={handleReset} className={style.controlsButton}>
+          <ArrowPathIcon />
+        </button>
+        {isWon && (
+          <button onClick={handleWin} className={style.controlsButton}>
+            <ForwardIcon />
+          </button>
+        )}
+      </div>
+      <div className={style.field}>
         {bottles.map((bottle, i) => (
           <Bottle
             key={i}
@@ -86,14 +101,7 @@ export const Game = observer(() => {
             bottleParts={bottleParts}
           />
         ))}
-        <button
-          onClick={handleReset}
-          style={{ position: 'absolute', left: 20, top: 150 }}
-        >
-          Reset
-        </button>
       </div>
-      {isWon && <button onClick={handleWin}>Next lvl</button>}
-    </div>
+    </main>
   );
 });

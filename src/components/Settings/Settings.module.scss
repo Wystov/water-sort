@@ -13,9 +13,27 @@
   justify-content: space-between;
   gap: 10px;
   margin-bottom: 15px;
+
+  & input {
+    width: 50px;
+    text-align: center;
+  }
 }
 
 .btnContainer {
   display: flex;
   justify-content: space-between;
+
+  & button {
+    cursor: pointer;
+    padding: 5px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+
+    & svg {
+      width: 32px;
+      color: white;
+    }
+  }
 }

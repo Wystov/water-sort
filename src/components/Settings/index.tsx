@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { XCircleIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/outline';
+
 import { game } from '@/store';
 
 import style from './Settings.module.scss';
@@ -25,7 +28,7 @@ export const Settings = () => {
   };
 
   return (
-    <div className={style.container}>
+    <main className={style.container}>
       <p style={{ marginBottom: 20 }}>
         If you apply new settings your game will be reset
       </p>
@@ -56,11 +59,13 @@ export const Settings = () => {
         </label>
         <div className={style.btnContainer}>
           <button type="button" onClick={() => navigate('/')}>
-            X
+            <XCircleIcon />
           </button>
-          <button type="submit">V</button>
+          <button type="submit">
+            <CheckCircleIcon />
+          </button>
         </div>
       </form>
-    </div>
+    </main>
   );
 };

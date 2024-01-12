@@ -1,12 +1,15 @@
 import { Link } from 'react-router-dom';
 
+import { Cog6ToothIcon } from '@heroicons/react/24/outline';
+
 import style from './style.module.scss';
 
 export const Header = () => {
   return (
     <header className={style.header}>
-      <Link to="/">Game</Link>
-      <Link to="/settings">Settings</Link>
+      <Link to="/settings">
+        <Cog6ToothIcon style={{ width: 32, color: 'white' }} />
+      </Link>
     </header>
   );
 };

@@ -1,0 +1,24 @@
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+
+  &Button {
+    cursor: pointer;
+    padding: 5px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+
+    & svg {
+      width: 32px;
+      color: white;
+    }
+  }
+}
+
+.field {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
