@@ -10,6 +10,11 @@
     border: none;
     outline: none;
 
+    &:disabled {
+      cursor: default;
+      opacity: 0.5;
+    }
+
     & svg {
       width: 32px;
       color: white;

@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, toJS } from 'mobx';
 
 import { BottleType, SetSettingsParams } from '@/types';
 import { createLvlData } from '@/utils/createLvlData';
@@ -13,6 +13,7 @@ class Game {
     this.bottlesCount,
     this.colors
   );
+  history: BottleType[][] = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -33,12 +34,26 @@ class Game {
     this.colors = colors;
     this.bottleParts = bottleParts;
     this.bottlesCount = bottlesCount;
+    this.clearHistory();
     this.setBottles();
   }
 
   moveWater(from: number, to: number) {
     const moved = this.bottles[from].pop();
     this.bottles[to].push(moved ?? null);
+  }
+
+  addToHistory() {
+    this.history.push(toJS(this.bottles));
+  }
+
+  backInHistory() {
+    const bottles = this.history.pop();
+    if (bottles) this.setBottles(bottles);
+  }
+
+  clearHistory() {
+    this.history.length = 0;
   }
 }
 

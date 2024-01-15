@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import { ForwardIcon } from '@heroicons/react/24/outline';
+import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline';
 
 import { Bottle } from '@/components/Bottle';
 import { game } from '@/store';
@@ -15,7 +16,7 @@ import { isPourAllowed } from '@/utils/isPourAllowed';
 import style from './style.module.scss';
 
 export const Game = observer(() => {
-  const { bottleParts, lvl, bottles } = game;
+  const { bottleParts, lvl, bottles, history } = game;
 
   const isWon = bottles.every(
     (bottle) =>
@@ -34,12 +35,18 @@ export const Game = observer(() => {
   };
 
   const handleWin = () => {
+    game.clearHistory();
     game.setLvl(lvl + 1);
   };
 
   const handleReset = () => {
     resetPourFrom();
+    game.clearHistory();
     game.setBottles();
+  };
+
+  const handleBackInHistory = () => {
+    game.backInHistory();
   };
 
   const handleBottleClick: handleBottleClickType = (clicked, bottleRef) => {
@@ -55,26 +62,22 @@ export const Game = observer(() => {
     const fromElement = pourFrom?.current?.element;
     if (!fromElement) return;
 
-    const newBottles = [...bottles];
-
     let isBottlesChanged = false;
 
     while (pourFrom.current !== null) {
-      if (
-        !isPourAllowed(pourFrom.current.i, clicked, newBottles, bottleParts)
-      ) {
+      if (!isPourAllowed(pourFrom.current.i, clicked, bottles, bottleParts)) {
         !isBottlesChanged && resetPourFrom();
         break;
       }
 
       if (!isBottlesChanged) {
         handleAnimation(fromElement, moveBottle(fromElement, clickedElement));
+        game.addToHistory();
         isBottlesChanged = true;
       }
       game.moveWater(pourFrom.current.i, clicked);
     }
 
-    isBottlesChanged && game.setBottles(newBottles);
     pourFrom.current = null;
   };
 
@@ -82,13 +85,23 @@ export const Game = observer(() => {
     <main>
       <h1 style={{ textAlign: 'center' }}>Lvl {lvl}</h1>
       <div className={style.controls}>
-        <button onClick={handleReset} className={style.controlsButton}>
-          <ArrowPathIcon />
-        </button>
-        {isWon && (
+        {isWon ? (
           <button onClick={handleWin} className={style.controlsButton}>
             <ForwardIcon />
           </button>
+        ) : (
+          <>
+            <button onClick={handleReset} className={style.controlsButton}>
+              <ArrowPathIcon />
+            </button>
+            <button
+              onClick={handleBackInHistory}
+              className={style.controlsButton}
+              disabled={!history.length}
+            >
+              <ArrowUturnLeftIcon />
+            </button>
+          </>
         )}
       </div>
       <div className={style.field}>
