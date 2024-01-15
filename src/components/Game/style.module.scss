@@ -10,6 +10,10 @@
     border: none;
     outline: none;
 
+    &Active svg {
+      color: green;
+    }
+
     &:disabled {
       cursor: default;
       opacity: 0.5;

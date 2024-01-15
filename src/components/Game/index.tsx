@@ -1,9 +1,11 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import { ForwardIcon } from '@heroicons/react/24/outline';
-import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftCircleIcon } from '@heroicons/react/24/outline';
+import { ArrowDownCircleIcon } from '@heroicons/react/24/outline';
+import { PlusCircleIcon } from '@heroicons/react/24/outline';
 
 import { Bottle } from '@/components/Bottle';
 import { game } from '@/store';
@@ -17,6 +19,8 @@ import style from './style.module.scss';
 
 export const Game = observer(() => {
   const { bottleParts, lvl, bottles, history } = game;
+
+  const [fromBottom, setFromBottom] = useState(false);
 
   const isWon = bottles.every(
     (bottle) =>
@@ -49,6 +53,14 @@ export const Game = observer(() => {
     game.backInHistory();
   };
 
+  const handleAddBottle = () => {
+    game.addBottle();
+  };
+
+  const handleWaterFromBottom = () => {
+    setFromBottom(!fromBottom);
+  };
+
   const handleBottleClick: handleBottleClickType = (clicked, bottleRef) => {
     const clickedElement = bottleRef.current;
     if (!clickedElement) return;
@@ -65,20 +77,34 @@ export const Game = observer(() => {
     let isBottlesChanged = false;
 
     while (pourFrom.current !== null) {
-      if (!isPourAllowed(pourFrom.current.i, clicked, bottles, bottleParts)) {
+      if (
+        !isPourAllowed(
+          pourFrom.current.i,
+          clicked,
+          bottles,
+          bottleParts,
+          fromBottom
+        )
+      ) {
         !isBottlesChanged && resetPourFrom();
         break;
       }
 
       if (!isBottlesChanged) {
-        handleAnimation(fromElement, moveBottle(fromElement, clickedElement));
+        fromBottom
+          ? handleAnimation(pourFrom.current.element, select('reverse'))
+          : handleAnimation(
+              fromElement,
+              moveBottle(fromElement, clickedElement)
+            );
         game.addToHistory();
         isBottlesChanged = true;
       }
-      game.moveWater(pourFrom.current.i, clicked);
+      game.moveWater(pourFrom.current.i, clicked, fromBottom);
     }
 
     pourFrom.current = null;
+    if (fromBottom) setFromBottom(false);
   };
 
   return (
@@ -86,20 +112,47 @@ export const Game = observer(() => {
       <h1 style={{ textAlign: 'center' }}>Lvl {lvl}</h1>
       <div className={style.controls}>
         {isWon ? (
-          <button onClick={handleWin} className={style.controlsButton}>
+          <button
+            onClick={handleWin}
+            className={style.controlsButton}
+            title="Next level"
+          >
             <ForwardIcon />
           </button>
         ) : (
           <>
-            <button onClick={handleReset} className={style.controlsButton}>
+            <button
+              onClick={handleReset}
+              className={style.controlsButton}
+              title="Restart"
+            >
               <ArrowPathIcon />
             </button>
             <button
               onClick={handleBackInHistory}
               className={style.controlsButton}
               disabled={!history.length}
+              title="Move back"
             >
-              <ArrowUturnLeftIcon />
+              <ArrowLeftCircleIcon />
+            </button>
+            <button
+              onClick={handleWaterFromBottom}
+              className={`${style.controlsButton} ${
+                fromBottom ? style.controlsButtonActive : ''
+              }`}
+              title="Pour from bottom"
+            >
+              <ArrowDownCircleIcon
+                style={{ color: fromBottom ? 'green' : '' }}
+              />
+            </button>
+            <button
+              onClick={handleAddBottle}
+              className={style.controlsButton}
+              title="Add bottle"
+            >
+              <PlusCircleIcon />
             </button>
           </>
         )}

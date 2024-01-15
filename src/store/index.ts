@@ -30,6 +30,10 @@ class Game {
       createLvlData(this.bottleParts, this.bottlesCount, this.colors);
   }
 
+  addBottle() {
+    this.bottles.push([]);
+  }
+
   setSettings({ colors, bottleParts, bottlesCount }: SetSettingsParams) {
     this.colors = colors;
     this.bottleParts = bottleParts;
@@ -38,8 +42,10 @@ class Game {
     this.setBottles();
   }
 
-  moveWater(from: number, to: number) {
-    const moved = this.bottles[from].pop();
+  moveWater(from: number, to: number, fromBottom = false) {
+    const moved = fromBottom
+      ? this.bottles[from].shift()
+      : this.bottles[from].pop();
     this.bottles[to].push(moved ?? null);
   }
 

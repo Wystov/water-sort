@@ -39,7 +39,7 @@ export const Bottle = ({
                 style={{
                   backgroundColor: color,
                 }}
-                key={j}
+                key={j + color + count}
                 transition={{ duration: 0.5 }}
                 initial={{ maxHeight: '0%' }}
                 animate={{ maxHeight: `${(100 / bottleParts) * count}%` }}

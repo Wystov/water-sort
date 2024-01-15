@@ -7,7 +7,7 @@ import style from './style.module.scss';
 export const Header = () => {
   return (
     <header className={style.header}>
-      <Link to="/settings">
+      <Link to="/settings" title="Settings">
         <Cog6ToothIcon style={{ width: 32, color: 'white' }} />
       </Link>
     </header>
