@@ -1,28 +1,18 @@
 import { useRef } from 'react';
 import { AnimatePresence, m } from 'framer-motion';
+import { observer } from 'mobx-react-lite';
 
-import { BottleColorsCountType, BottleProps } from '@/types';
+import { BottleProps } from '@/types';
 
 import style from './Bottle.module.scss';
 
-export const Bottle = ({
+export const Bottle = observer(function Bottle({
   i,
   bottle,
   bottleParts,
   handleBottleClick,
-}: BottleProps) => {
+}: BottleProps) {
   const bottleRef = useRef<HTMLDivElement | null>(null);
-
-  const bottleWithCount = bottle.reduce((acc, color) => {
-    if (!color) return acc;
-    const prev = acc.at(-1);
-    if (prev && prev.color === color) {
-      prev.count++;
-      return acc;
-    }
-    acc.push({ color, count: 1 });
-    return acc;
-  }, [] as BottleColorsCountType[]);
 
   return (
     <div
@@ -31,7 +21,7 @@ export const Bottle = ({
       ref={bottleRef}
     >
       <AnimatePresence>
-        {bottleWithCount.map(
+        {bottle.map(
           ({ color, count }, j) =>
             color && (
               <m.div
@@ -50,4 +40,4 @@ export const Bottle = ({
       </AnimatePresence>
     </div>
   );
-};
+});

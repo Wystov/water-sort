@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
 
 import { XCircleIcon } from '@heroicons/react/24/outline';
@@ -8,7 +9,7 @@ import { game } from '@/store';
 
 import style from './Settings.module.scss';
 
-export const Settings = () => {
+export const Settings = observer(function Settings() {
   const navigate = useNavigate();
   const { bottleParts, bottlesCount, colors } = game;
   const [parts, setParts] = useState(bottleParts);
@@ -68,4 +69,4 @@ export const Settings = () => {
       </form>
     </main>
   );
-};
+});

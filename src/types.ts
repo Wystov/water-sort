@@ -5,7 +5,7 @@ export type handleBottleClickType = (
 
 export type BottleProps = {
   i: number;
-  bottle: BottleType;
+  bottle: BottleColorsCountType[];
   bottleParts: number;
   handleBottleClick: handleBottleClickType;
 };
@@ -41,3 +41,9 @@ export type SettingsType = {
 };
 
 export type SetSettingsParams = Omit<SettingsType, 'lvl'>;
+
+export type GameControlsProps = {
+  resetPourFrom: () => void;
+  fromBottom: boolean;
+  setFromBottom: (fromBottom: boolean) => void;
+};

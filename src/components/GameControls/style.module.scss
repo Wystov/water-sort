@@ -1,0 +1,23 @@
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+
+  &Button {
+    cursor: pointer;
+    padding: 5px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+
+    &:disabled {
+      cursor: default;
+      opacity: 0.5;
+    }
+
+    & svg {
+      width: 32px;
+      color: white;
+    }
+  }
+}

@@ -2,6 +2,7 @@ import { makeAutoObservable, toJS } from 'mobx';
 
 import { BottleType, SetSettingsParams } from '@/types';
 import { createLvlData } from '@/utils/createLvlData';
+import { getBottleWithCount } from '@/utils/getBottleWithCount';
 
 class Game {
   lvl = 1;
@@ -17,6 +18,19 @@ class Game {
 
   constructor() {
     makeAutoObservable(this);
+  }
+
+  get bottlesWithCount() {
+    return this.bottles.map((bottle) => getBottleWithCount(bottle));
+  }
+
+  get isWon() {
+    return this.bottles.every(
+      (bottle) =>
+        !bottle.length ||
+        (bottle.length === this.bottleParts &&
+          bottle.every((color) => color === bottle[0]))
+    );
   }
 
   setLvl(lvl: number) {
