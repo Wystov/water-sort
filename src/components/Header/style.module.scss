@@ -3,5 +3,15 @@
   box-sizing: border-box;
   width: 100%;
   padding: 0 40px;
-  justify-content: flex-end;
+  justify-content: space-between;
+}
+
+.linksContainer {
+  display: flex;
+  gap: 20px;
+}
+
+.btn {
+  width: 32px;
+  color: white;
 }

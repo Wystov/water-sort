@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { XCircleIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 
-import { game } from '@/store';
+import { game } from '@/store/Game';
 
 import style from './Settings.module.scss';
 

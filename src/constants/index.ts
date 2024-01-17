@@ -10,3 +10,9 @@ export const COLORS: ColorsType[] = [
   '#078080',
   '#00214d',
 ];
+
+export const PERK_COST = {
+  moveBack: 10,
+  pourFromBottom: 50,
+  addBottle: 100,
+};

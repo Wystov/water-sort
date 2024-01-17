@@ -3,7 +3,8 @@ import { observer } from 'mobx-react-lite';
 
 import { Bottle } from '@/components/Bottle';
 import { GameControls } from '@/components/GameControls';
-import { game } from '@/store';
+import { game } from '@/store/Game';
+import { user } from '@/store/User';
 import { handleBottleClickType, pourFromType } from '@/types';
 import { handleAnimation } from '@/utils/animations/handleAnimation';
 import { moveBottle } from '@/utils/animations/moveBottle';
@@ -68,7 +69,11 @@ export const Game = observer(function Game() {
     }
 
     pourFrom.current = null;
-    if (fromBottom) setFromBottom(false);
+
+    if (isBottlesChanged && fromBottom) {
+      user.decreasePerk('pourFromBottom');
+      setFromBottom(false);
+    }
   };
 
   return (

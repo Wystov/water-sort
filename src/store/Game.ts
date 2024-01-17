@@ -1,8 +1,10 @@
-import { makeAutoObservable, toJS } from 'mobx';
+import { makeAutoObservable, reaction, toJS } from 'mobx';
 
 import { BottleType, SetSettingsParams } from '@/types';
 import { createLvlData } from '@/utils/createLvlData';
 import { getBottleWithCount } from '@/utils/getBottleWithCount';
+
+import { user } from './User';
 
 class Game {
   lvl = 1;
@@ -78,3 +80,13 @@ class Game {
 }
 
 export const game = new Game();
+
+reaction(
+  () => game.isWon,
+  (isWon) => {
+    if (isWon) {
+      user.increaseWins();
+      user.increaseCoins(100);
+    }
+  }
+);
