@@ -1,9 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import { Game } from '@/components/Game';
 import { Layout } from '@/components/Layout';
-import { Settings } from '@/components/Settings';
-import { Shop } from '@/components/Shop';
+import { Game } from '@/pages/Game';
+import { Settings } from '@/pages/Settings';
+import { Shop } from '@/pages/Shop';
 
 export const router = createBrowserRouter([
   {
