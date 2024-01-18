@@ -1,6 +1,8 @@
+import { UserInfo } from 'firebase/auth';
 import { makeAutoObservable } from 'mobx';
 
 class User {
+  profile: UserInfo | null = null;
   coins = 1000;
   wins = 0;
   perks = {
@@ -33,6 +35,10 @@ class User {
     if (this.perks[perk] > 0) {
       this.perks[perk] -= 1;
     }
+  }
+
+  setUserProfile(profile: UserInfo | null) {
+    this.profile = profile;
   }
 }
 
