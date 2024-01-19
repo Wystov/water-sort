@@ -1,6 +1,4 @@
-import { ColorsType } from '@/types';
-
-export const COLORS: ColorsType[] = [
+export const COLORS = [
   '#f9bc60',
   '#abd1c6',
   '#e16162',
@@ -9,7 +7,7 @@ export const COLORS: ColorsType[] = [
   '#6246ea',
   '#078080',
   '#00214d',
-];
+] as const;
 
 export const PERK_COST = {
   moveBack: 10,
