@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 
-import { signInWithGoogle, signOutUser } from '@/firebase';
+import { signInWithGoogle, signOutUser } from '@/services/firebase/auth';
 import { user } from '@/store/User';
 
 export const AuthForm = observer(function AuthForm() {

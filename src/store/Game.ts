@@ -1,6 +1,6 @@
 import { makeAutoObservable, reaction, toJS } from 'mobx';
 
-import { BottleType, SetSettingsParams } from '@/types';
+import { BottleType, GameData, SetSettingsParams } from '@/types';
 import { createLvlData } from '@/utils/createLvlData';
 import { getBottleWithCount } from '@/utils/getBottleWithCount';
 
@@ -20,6 +20,26 @@ class Game {
 
   constructor() {
     makeAutoObservable(this);
+  }
+
+  get gameData() {
+    return {
+      lvl: this.lvl,
+      colors: this.colors,
+      bottleParts: this.bottleParts,
+      bottlesCount: this.bottlesCount,
+      bottles: JSON.stringify(this.bottles),
+      history: JSON.stringify(this.history),
+    };
+  }
+
+  setGameData(gameData: GameData) {
+    this.lvl = gameData.lvl;
+    this.colors = gameData.colors;
+    this.bottleParts = gameData.bottleParts;
+    this.bottlesCount = gameData.bottlesCount;
+    this.bottles = JSON.parse(gameData.bottles);
+    this.history = JSON.parse(gameData.history);
   }
 
   get bottlesWithCount() {

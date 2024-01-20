@@ -41,3 +41,27 @@ export type GameControlsProps = {
   fromBottom: boolean;
   setFromBottom: (fromBottom: boolean) => void;
 };
+
+export type UserData = {
+  coins: number;
+  wins: number;
+  perks: {
+    moveBack: number;
+    pourFromBottom: number;
+    addBottle: number;
+  };
+};
+
+export type GameData = {
+  lvl: number;
+  colors: number;
+  bottleParts: number;
+  bottlesCount: number;
+  bottles: string;
+  history: string;
+};
+
+export type FirebaseData = {
+  gameData: GameData;
+  userData: UserData;
+};

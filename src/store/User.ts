@@ -1,6 +1,8 @@
 import { UserInfo } from 'firebase/auth';
 import { makeAutoObservable } from 'mobx';
 
+import { UserData } from '@/types';
+
 class User {
   profile: UserInfo | null = null;
   coins = 1000;
@@ -39,6 +41,20 @@ class User {
 
   setUserProfile(profile: UserInfo | null) {
     this.profile = profile;
+  }
+
+  get userData() {
+    return {
+      coins: this.coins,
+      wins: this.wins,
+      perks: this.perks,
+    };
+  }
+
+  setUserData(data: UserData) {
+    this.coins = data.coins;
+    this.wins = data.wins;
+    this.perks = data.perks;
   }
 }
 
