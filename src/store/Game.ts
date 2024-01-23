@@ -3,6 +3,7 @@ import { makeAutoObservable, reaction, toJS } from 'mobx';
 import { BottleType, GameData, SetSettingsParams } from '@/types';
 import { createLvlData } from '@/utils/createLvlData';
 import { getBottleWithCount } from '@/utils/getBottleWithCount';
+import { debouncedSaveUserData } from '@/utils/indexDB';
 
 import { user } from './User';
 
@@ -22,24 +23,43 @@ class Game {
     makeAutoObservable(this);
   }
 
+  reset() {
+    this.lvl = 1;
+    this.colors = 3;
+    this.bottleParts = 4;
+    this.bottlesCount = 5;
+    this.bottles = createLvlData(
+      this.bottleParts,
+      this.bottlesCount,
+      this.colors
+    );
+    this.history = [];
+  }
   get gameData() {
     return {
       lvl: this.lvl,
       colors: this.colors,
       bottleParts: this.bottleParts,
       bottlesCount: this.bottlesCount,
-      bottles: JSON.stringify(this.bottles),
-      history: JSON.stringify(this.history),
+      bottles: this.bottles,
+      history: this.history,
     };
   }
 
-  setGameData(gameData: GameData) {
-    this.lvl = gameData.lvl;
-    this.colors = gameData.colors;
-    this.bottleParts = gameData.bottleParts;
-    this.bottlesCount = gameData.bottlesCount;
-    this.bottles = JSON.parse(gameData.bottles);
-    this.history = JSON.parse(gameData.history);
+  setGameData({
+    lvl,
+    colors,
+    bottleParts,
+    bottlesCount,
+    bottles,
+    history,
+  }: GameData) {
+    this.lvl = lvl;
+    this.colors = colors;
+    this.bottleParts = bottleParts;
+    this.bottlesCount = bottlesCount;
+    this.bottles = Array.isArray(bottles) ? bottles : JSON.parse(bottles);
+    this.history = Array.isArray(history) ? history : JSON.parse(history);
   }
 
   get bottlesWithCount() {
@@ -108,5 +128,12 @@ reaction(
       user.increaseWins();
       user.increaseCoins(100);
     }
+  }
+);
+
+reaction(
+  () => game.bottles,
+  () => {
+    debouncedSaveUserData();
   }
 );

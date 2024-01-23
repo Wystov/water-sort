@@ -57,8 +57,8 @@ export type GameData = {
   colors: number;
   bottleParts: number;
   bottlesCount: number;
-  bottles: string;
-  history: string;
+  bottles: BottleType[] | string;
+  history: BottleType[][] | string;
 };
 
 export type FirebaseData = {

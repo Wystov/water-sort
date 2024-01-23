@@ -1,17 +1,29 @@
 import { UserInfo } from 'firebase/auth';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, reaction } from 'mobx';
 
 import { UserData } from '@/types';
+import { debouncedSaveUserData } from '@/utils/indexDB';
 
 class User {
   profile: UserInfo | null = null;
   coins = 1000;
   wins = 0;
   perks = {
-    moveBack: 0,
-    pourFromBottom: 0,
-    addBottle: 0,
+    moveBack: 3,
+    pourFromBottom: 3,
+    addBottle: 3,
   };
+
+  reset() {
+    this.profile = null;
+    this.coins = 1000;
+    this.wins = 0;
+    this.perks = {
+      moveBack: 3,
+      pourFromBottom: 3,
+      addBottle: 3,
+    };
+  }
 
   constructor() {
     makeAutoObservable(this);
@@ -59,3 +71,10 @@ class User {
 }
 
 export const user = new User();
+
+reaction(
+  () => user.coins,
+  () => {
+    debouncedSaveUserData();
+  }
+);

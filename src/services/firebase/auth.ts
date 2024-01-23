@@ -8,6 +8,7 @@ import {
 import { toast } from 'react-toastify';
 
 import { user } from '@/store/User';
+import { loadGame } from '@/utils/indexDB';
 
 import { app } from '.';
 
@@ -28,5 +29,6 @@ export const signOutUser = async () => {
 
 onAuthStateChanged(auth, (data) => {
   user.setUserProfile(data);
+  loadGame();
   if (data) toast.success(`Welcome back, ${data.displayName}`);
 });

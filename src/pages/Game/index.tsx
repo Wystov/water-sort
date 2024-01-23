@@ -9,6 +9,7 @@ import { handleBottleClickType, pourFromType } from '@/types';
 import { handleAnimation } from '@/utils/animations/handleAnimation';
 import { moveBottle } from '@/utils/animations/moveBottle';
 import { select } from '@/utils/animations/select';
+import { debouncedSaveUserData } from '@/utils/indexDB';
 import { isPourAllowed } from '@/utils/isPourAllowed';
 
 import style from './style.module.scss';
@@ -69,6 +70,8 @@ export const Game = observer(function Game() {
     }
 
     pourFrom.current = null;
+
+    isBottlesChanged && debouncedSaveUserData();
 
     if (isBottlesChanged && fromBottom) {
       user.decreasePerk('pourFromBottom');

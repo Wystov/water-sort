@@ -9,17 +9,23 @@ import { app } from '.';
 
 const db = getFirestore(app);
 
-export const saveUserData = async () => {
+export const saveToCloud = async () => {
   const id = auth.currentUser?.uid;
   if (!id) return;
+
   const data = {
-    gameData: game.gameData,
+    gameData: {
+      ...game.gameData,
+      bottles: JSON.stringify(game.bottles),
+      history: JSON.stringify(game.history),
+    },
     userData: user.userData,
   };
+
   await setDoc(doc(db, 'users', id), data);
 };
 
-export const loadUserData = async () => {
+export const loadFromCloud = async () => {
   const id = auth.currentUser?.uid;
   if (!id) return;
 
