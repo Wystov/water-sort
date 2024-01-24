@@ -6,6 +6,7 @@ import { debouncedSaveUserData } from '@/utils/indexDB';
 
 class User {
   profile: UserInfo | null = null;
+  loaded = false;
   coins = 1000;
   wins = 0;
   perks = {
@@ -67,6 +68,7 @@ class User {
     this.coins = data.coins;
     this.wins = data.wins;
     this.perks = data.perks;
+    user.loaded = true;
   }
 }
 
