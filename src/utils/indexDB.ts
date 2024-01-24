@@ -13,11 +13,16 @@ localforage.config({
 export const loadGame = async () => {
   const id = user.profile?.uid ?? 'anonymous';
   const data: string | null = await localforage.getItem(id);
-  if (!data) return;
+  if (!data) {
+    user.setUserLoaded();
+    return;
+  }
+
   const decoded = JSON.parse(atob(data));
-  if (!decoded) return;
+
   game.setGameData(decoded.gameData);
   user.setUserData(decoded.userData);
+  user.setUserLoaded();
 };
 
 const saveGame = () => {

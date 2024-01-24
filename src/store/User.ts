@@ -68,7 +68,10 @@ class User {
     this.coins = data.coins;
     this.wins = data.wins;
     this.perks = data.perks;
-    user.loaded = true;
+  }
+
+  setUserLoaded() {
+    this.loaded = true;
   }
 }
 
