@@ -12,7 +12,7 @@ import { select } from '@/utils/animations/select';
 import { debouncedSaveUserData } from '@/utils/indexDB';
 import { isPourAllowed } from '@/utils/isPourAllowed';
 
-import style from './style.module.scss';
+import styles from './Game.module.scss';
 
 export const Game = observer(function Game() {
   const { bottleParts, lvl, bottles, bottlesWithCount } = game;
@@ -87,7 +87,7 @@ export const Game = observer(function Game() {
         fromBottom={fromBottom}
         setFromBottom={setFromBottom}
       />
-      <div className={style.field}>
+      <div className={styles.field}>
         {bottlesWithCount.map((bottle, i) => (
           <Bottle
             key={i}

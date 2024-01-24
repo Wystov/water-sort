@@ -7,7 +7,7 @@ import { CheckCircleIcon } from '@heroicons/react/24/outline';
 
 import { game } from '@/store/Game';
 
-import style from './Settings.module.scss';
+import styles from './Settings.module.scss';
 
 export const Settings = observer(function Settings() {
   const navigate = useNavigate();
@@ -29,12 +29,12 @@ export const Settings = observer(function Settings() {
   };
 
   return (
-    <main className={style.container}>
+    <main className={styles.container}>
       <p style={{ marginBottom: 20 }}>
         If you apply new settings your game will be reset
       </p>
-      <form onSubmit={handleSubmit} className={style.form}>
-        <label className={style.label}>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <label className={styles.label}>
           Bottles:
           <input
             type="number"
@@ -42,7 +42,7 @@ export const Settings = observer(function Settings() {
             onChange={(e) => setBottles(+e.target.value)}
           />
         </label>
-        <label className={style.label}>
+        <label className={styles.label}>
           Parts:
           <input
             type="number"
@@ -50,7 +50,7 @@ export const Settings = observer(function Settings() {
             onChange={(e) => setParts(+e.target.value)}
           />
         </label>
-        <label className={style.label}>
+        <label className={styles.label}>
           Colors:
           <input
             type="number"
@@ -58,7 +58,7 @@ export const Settings = observer(function Settings() {
             onChange={(e) => setColorsCount(+e.target.value)}
           />
         </label>
-        <div className={style.btnContainer}>
+        <div className={styles.btnContainer}>
           <button type="button" onClick={() => navigate('/')}>
             <XCircleIcon />
           </button>

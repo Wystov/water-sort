@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react-lite';
 
-import style from './style.module.scss';
+import styles from './Loader.module.scss';
 
 export const Loader = observer(function Loader() {
   return (
-    <div className={style.loader}>
+    <div className={styles.loader}>
       <div></div>
       <div></div>
     </div>

@@ -12,7 +12,7 @@ import { game } from '@/store/Game';
 import { user } from '@/store/User';
 import { GameControlsProps } from '@/types';
 
-import style from './style.module.scss';
+import styles from './GameControls.module.scss';
 
 export const GameControls = observer(function GameControls({
   resetPourFrom,
@@ -51,11 +51,11 @@ export const GameControls = observer(function GameControls({
   };
 
   return (
-    <div className={style.controls}>
+    <div className={styles.controls}>
       {isWon ? (
         <button
           onClick={handleWin}
-          className={style.controlsButton}
+          className={styles.controlsButton}
           title="Next level"
         >
           <ForwardIcon />
@@ -64,14 +64,14 @@ export const GameControls = observer(function GameControls({
         <>
           <button
             onClick={handleReset}
-            className={style.controlsButton}
+            className={styles.controlsButton}
             title="Restart"
           >
             <ArrowPathIcon />
           </button>
           <button
             onClick={handleBackInHistory}
-            className={style.controlsButton}
+            className={styles.controlsButton}
             disabled={!history.length || perks.moveBack === 0}
             title="Move back"
           >
@@ -80,7 +80,7 @@ export const GameControls = observer(function GameControls({
           </button>
           <button
             onClick={handleWaterFromBottom}
-            className={style.controlsButton}
+            className={styles.controlsButton}
             title="Pour from bottom"
             disabled={!fromBottom && perks.pourFromBottom === 0}
           >
@@ -89,7 +89,7 @@ export const GameControls = observer(function GameControls({
           </button>
           <button
             onClick={handleAddBottle}
-            className={style.controlsButton}
+            className={styles.controlsButton}
             title="Add bottle"
             disabled={perks.addBottle === 0}
           >

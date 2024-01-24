@@ -9,23 +9,23 @@ import {
 
 import { Stats } from '@/components/Stats';
 
-import style from './style.module.scss';
+import styles from './Header.module.scss';
 
 export const Header = observer(function Header() {
   return (
-    <header className={style.header}>
-      <div className={style.linksContainer}>
+    <header className={styles.header}>
+      <div className={styles.linksContainer}>
         <Link to="/account" title="Account">
-          <UserCircleIcon className={style.btn} />
+          <UserCircleIcon className={styles.btn} />
         </Link>
         <Stats />
       </div>
-      <div className={style.linksContainer}>
+      <div className={styles.linksContainer}>
         <Link to="/shop" title="Shop">
-          <ShoppingCartIcon className={style.btn} />
+          <ShoppingCartIcon className={styles.btn} />
         </Link>
         <Link to="/settings" title="Settings">
-          <Cog6ToothIcon className={style.btn} />
+          <Cog6ToothIcon className={styles.btn} />
         </Link>
       </div>
     </header>

@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 
 import { BottleProps } from '@/types';
 
-import style from './Bottle.module.scss';
+import styles from './Bottle.module.scss';
 
 export const Bottle = observer(function Bottle({
   i,
@@ -17,7 +17,7 @@ export const Bottle = observer(function Bottle({
   return (
     <div
       onClick={() => handleBottleClick(i, bottleRef)}
-      className={style.bottle}
+      className={styles.bottle}
       ref={bottleRef}
     >
       <AnimatePresence>
@@ -25,7 +25,7 @@ export const Bottle = observer(function Bottle({
           ({ color, count }, j) =>
             color && (
               <m.div
-                className={style.fill}
+                className={styles.fill}
                 style={{
                   backgroundColor: color,
                 }}
