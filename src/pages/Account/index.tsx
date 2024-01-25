@@ -25,13 +25,13 @@ export const Account = observer(function Account() {
 
   return (
     <div>
-      <h1>Account</h1>
-      <div>{profile?.displayName ?? 'Not signed in'}</div>
       {profile && (
-        <>
+        <div>
+          <img src={profile.photoURL ?? ''} style={{ borderRadius: '50%' }} />
+          <div>{profile.displayName ?? 'Not signed in'}</div>
           <button onClick={handleSave}>Save</button>
           <button onClick={handleLoad}>Load</button>
-        </>
+        </div>
       )}
       <AuthForm />
       <Link to="/">Back</Link>
