@@ -4,6 +4,7 @@ import { BottleType, GameData, SetSettingsParams } from '@/types';
 import { createLvlData } from '@/utils/createLvlData';
 import { getBottleWithCount } from '@/utils/getBottleWithCount';
 import { debouncedSaveUserData } from '@/utils/indexDB';
+import { isSolved } from '@/utils/isSolved';
 
 import { user } from './User';
 
@@ -67,12 +68,7 @@ class Game {
   }
 
   get isWon() {
-    return this.bottles.every(
-      (bottle) =>
-        !bottle.length ||
-        (bottle.length === this.bottleParts &&
-          bottle.every((color) => color === bottle[0]))
-    );
+    return isSolved(this.bottles, this.bottleParts);
   }
 
   setLvl(lvl: number) {

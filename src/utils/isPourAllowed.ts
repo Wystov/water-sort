@@ -5,10 +5,11 @@ export const isPourAllowed = (
   to: number,
   bottles: BottleType[],
   bottleParts: number,
-  fromBottom: boolean
+  fromBottom: boolean = false
 ): boolean => {
   if (
     from === to ||
+    !bottles[from].length ||
     bottles[to].length === bottleParts ||
     (bottles[to].length &&
       bottles[to].at(-1) !== bottles[from].at(fromBottom ? 0 : -1))
