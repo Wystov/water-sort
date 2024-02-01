@@ -2,14 +2,13 @@ import { BottleType } from '@/types';
 import { isPourAllowed } from '@/utils/isPourAllowed';
 import { isSolved } from '@/utils/isSolved';
 
+import { clone } from '../clone';
 import { getBottleWithCount } from '../getBottleWithCount';
 
 type StateItem = { bottles: BottleType[]; moves: [number, number][] };
 
 export const solver = (originalBottles: BottleType[], bottleParts: number) => {
-  const stack: StateItem[] = [
-    { bottles: structuredClone(originalBottles), moves: [] },
-  ];
+  const stack: StateItem[] = [{ bottles: clone(originalBottles), moves: [] }];
   const visitedStates = new Set<string>();
   const answer: {
     isSolvable: boolean;
@@ -41,7 +40,7 @@ export const solver = (originalBottles: BottleType[], bottleParts: number) => {
       for (let to = 0; to < bottles.length; to++) {
         const { isChanged, newBottles } = pour(from, to, bottles, bottleParts);
         if (isChanged) {
-          const newMoves = structuredClone(moves);
+          const newMoves = clone(moves);
           newMoves.push([from, to]);
           stack.push({
             bottles: newBottles,
@@ -63,7 +62,7 @@ function pour(
   bottleParts: number
 ) {
   let isChanged = false;
-  const newBottles = structuredClone(bottles);
+  const newBottles = clone(bottles);
   while (
     isPourAllowed(from, to, newBottles, bottleParts) &&
     isSolverPourAllowed(from, to, newBottles, bottleParts)
