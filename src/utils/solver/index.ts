@@ -1,18 +1,19 @@
 import { BottleType } from '@/types';
 import { isPourAllowed } from '@/utils/isPourAllowed';
-import { isSolved } from '@/utils/isSolved';
+import { isBottleSorted, isSolved } from '@/utils/isSolved';
 
-import { clone } from '../clone';
 import { getBottleWithCount } from '../getBottleWithCount';
 
-type StateItem = { bottles: BottleType[]; moves: [number, number][] };
+type StateItem = { bottles: BottleType[]; moves: string[] };
 
 export const solver = (originalBottles: BottleType[], bottleParts: number) => {
-  const stack: StateItem[] = [{ bottles: clone(originalBottles), moves: [] }];
+  const stack: StateItem[] = [
+    { bottles: cloneBottles(originalBottles), moves: [] },
+  ];
   const visitedStates = new Set<string>();
   const answer: {
     isSolvable: boolean;
-    moves?: [number, number][];
+    moves?: string[];
     stackCount: number;
   } = {
     isSolvable: false,
@@ -34,17 +35,15 @@ export const solver = (originalBottles: BottleType[], bottleParts: number) => {
 
     visitedStates.add(stateItem);
 
-    for (let from = 0; from < bottles.length; from++) {
+    for (let from = bottles.length - 1; from >= 0; from--) {
       if (!bottles[from].length) continue;
 
-      for (let to = 0; to < bottles.length; to++) {
+      for (let to = bottles.length - 1; to >= 0; to--) {
         const { isChanged, newBottles } = pour(from, to, bottles, bottleParts);
         if (isChanged) {
-          const newMoves = clone(moves);
-          newMoves.push([from, to]);
           stack.push({
             bottles: newBottles,
-            moves: newMoves,
+            moves: [...moves, `${from}, ${to}`],
           });
           break;
         }
@@ -62,14 +61,12 @@ function pour(
   bottleParts: number
 ) {
   let isChanged = false;
-  const newBottles = clone(bottles);
-  while (
-    isPourAllowed(from, to, newBottles, bottleParts) &&
-    isSolverPourAllowed(from, to, newBottles, bottleParts)
-  ) {
+  const newBottles = cloneBottles(bottles);
+  while (isSolverPourAllowed(from, to, newBottles, bottleParts)) {
     newBottles[to].push(newBottles[from].pop()!);
     isChanged = true;
   }
+
   return { isChanged, newBottles };
 }
 
@@ -79,19 +76,17 @@ function isSolverPourAllowed(
   bottles: BottleType[],
   bottleParts: number
 ) {
+  if (!isPourAllowed(from, to, bottles, bottleParts)) return false;
   if (
     isBottleSorted(bottles[from]) &&
     (!bottles[to].length || !isBottleSorted(bottles[to]))
   )
     return false;
-  if (
-    getBottleWithCount(bottles[from]).at(-1)!.count >
-    bottleParts - bottles[to].length
-  )
-    return false;
+  const fromTopColorCount = getBottleWithCount(bottles[from]).at(-1)!.count;
+  if (fromTopColorCount > bottleParts - bottles[to].length) return false;
   return true;
 }
 
-function isBottleSorted(bottle: BottleType) {
-  return bottle.every((color) => color === bottle[0]);
+function cloneBottles(bottles: BottleType[]) {
+  return bottles.map((bottle) => [...bottle]);
 }
