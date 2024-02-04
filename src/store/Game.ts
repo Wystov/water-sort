@@ -36,6 +36,7 @@ class Game {
     );
     this.history = [];
   }
+
   get gameData() {
     return {
       lvl: this.lvl,
@@ -69,6 +70,10 @@ class Game {
 
   get isWon() {
     return isSolved(this.bottles, this.bottleParts);
+  }
+
+  get rewardValue() {
+    return this.colors * this.bottleParts + this.lvl;
   }
 
   setLvl(lvl: number) {
@@ -122,7 +127,7 @@ reaction(
   (isWon) => {
     if (isWon) {
       user.increaseWins();
-      user.increaseCoins(100);
+      user.increaseCoins(game.rewardValue);
     }
   }
 );

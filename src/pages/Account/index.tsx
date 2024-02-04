@@ -2,6 +2,8 @@ import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
+import { DocumentCheckIcon } from '@heroicons/react/24/outline';
+
 import { AuthForm } from '@/components/AuthForm';
 import { loadFromCloud, saveToCloud } from '@/services/firebase/store';
 import { user } from '@/store/User';
@@ -21,7 +23,7 @@ const handleLoad = () =>
   });
 
 export const Account = observer(function Account() {
-  const { profile } = user;
+  const { profile, wins } = user;
 
   return (
     <div>
@@ -34,6 +36,11 @@ export const Account = observer(function Account() {
         </div>
       )}
       <AuthForm />
+      <p>Stats:</p>
+      <div>
+        <DocumentCheckIcon style={{ height: '24' }} />
+        {wins}
+      </div>
       <Link to="/">Back</Link>
     </div>
   );

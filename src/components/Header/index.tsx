@@ -7,7 +7,7 @@ import {
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
 
-import { Stats } from '@/components/Stats';
+import { Coins } from '@/components/Coins';
 
 import styles from './Header.module.scss';
 
@@ -18,7 +18,7 @@ export const Header = observer(function Header() {
         <Link to="/account" title="Account">
           <UserCircleIcon className={styles.btn} />
         </Link>
-        <Stats />
+        <Coins />
       </div>
       <div className={styles.linksContainer}>
         <Link to="/shop" title="Shop">
