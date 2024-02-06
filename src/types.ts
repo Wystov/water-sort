@@ -31,7 +31,6 @@ export type SettingsType = {
   lvl: number;
   colors: number;
   bottleParts: number;
-  bottlesCount: number;
 };
 
 export type SetSettingsParams = Omit<SettingsType, 'lvl'>;

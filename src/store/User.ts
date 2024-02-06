@@ -7,7 +7,7 @@ import { debouncedSaveUserData } from '@/utils/indexDB';
 class User {
   profile: UserInfo | null = null;
   loaded = false;
-  coins = 1000;
+  coins = 0;
   wins = 0;
   perks = {
     moveBack: 3,
@@ -17,7 +17,7 @@ class User {
 
   reset() {
     this.profile = null;
-    this.coins = 1000;
+    this.coins = 0;
     this.wins = 0;
     this.perks = {
       moveBack: 3,

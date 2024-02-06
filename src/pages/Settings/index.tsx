@@ -11,16 +11,14 @@ import styles from './Settings.module.scss';
 
 export const Settings = observer(function Settings() {
   const navigate = useNavigate();
-  const { bottleParts, bottlesCount, colors } = game;
+  const { bottleParts, colors } = game;
   const [parts, setParts] = useState(bottleParts);
-  const [bottles, setBottles] = useState(bottlesCount);
   const [colorsCount, setColorsCount] = useState(colors);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     game.setSettings({
-      bottlesCount: bottles,
       bottleParts: parts,
       colors: colorsCount,
     });
@@ -34,14 +32,6 @@ export const Settings = observer(function Settings() {
         If you apply new settings your game will be reset
       </p>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <label className={styles.label}>
-          Bottles:
-          <input
-            type="number"
-            value={bottles}
-            onChange={(e) => setBottles(+e.target.value)}
-          />
-        </label>
         <label className={styles.label}>
           Parts:
           <input

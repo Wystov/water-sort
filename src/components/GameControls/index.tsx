@@ -1,4 +1,4 @@
-import { toJS } from 'mobx';
+// import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 
 import {
@@ -12,8 +12,8 @@ import {
 import { game } from '@/store/Game';
 import { user } from '@/store/User';
 import { GameControlsProps } from '@/types';
-import { solver } from '@/utils/solver';
 
+// import { solver } from '@/utils/solver';
 import styles from './GameControls.module.scss';
 
 export const GameControls = observer(function GameControls({
@@ -52,15 +52,17 @@ export const GameControls = observer(function GameControls({
     user.decreasePerk('addBottle');
   };
 
-  const handleSolver = () => {
-    console.time('solver');
-    const { isSolvable, moves, stackCount } = solver(
-      toJS(game.bottles),
-      game.bottleParts
-    );
-    console.timeEnd('solver');
-    console.log('solvable:', isSolvable, 'tries:', stackCount, 'moves:', moves);
-  };
+  // TODO: add help btn that calculates next move from solver
+
+  // const handleSolver = () => {
+  //   console.time('solver');
+  //   const { isSolvable, moves, stackCount } = solver(
+  //     toJS(game.bottles),
+  //     game.bottleParts
+  //   );
+  //   console.timeEnd('solver');
+  //   console.log('solvable:', isSolvable, 'tries:', stackCount, 'moves:', moves);
+  // };
 
   return (
     <div className={styles.controls}>
@@ -111,7 +113,6 @@ export const GameControls = observer(function GameControls({
             {perks.addBottle}
             <PlusCircleIcon />
           </button>
-          <button onClick={handleSolver}>test solver</button>
         </>
       )}
     </div>

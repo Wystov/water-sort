@@ -1,5 +1,6 @@
 import { makeAutoObservable, reaction, toJS } from 'mobx';
 
+import { COLORS } from '@/constants';
 import { BottleType, GameData, SetSettingsParams } from '@/types';
 import { createLvlData } from '@/utils/createLvlData';
 import { getBottleWithCount } from '@/utils/getBottleWithCount';
@@ -10,9 +11,8 @@ import { user } from './User';
 
 class Game {
   lvl = 1;
-  colors = 3;
-  bottleParts = 4;
-  bottlesCount = 5;
+  colors = 2;
+  bottleParts = 2;
   bottles: BottleType[] = createLvlData(
     this.bottleParts,
     this.bottlesCount,
@@ -26,15 +26,19 @@ class Game {
 
   reset() {
     this.lvl = 1;
-    this.colors = 3;
-    this.bottleParts = 4;
-    this.bottlesCount = 5;
+    this.colors = 2;
+    this.bottleParts = 2;
     this.bottles = createLvlData(
       this.bottleParts,
       this.bottlesCount,
       this.colors
     );
     this.history = [];
+  }
+
+  get bottlesCount() {
+    const { lvl, colors } = this;
+    return lvl < 3 ? colors + 1 : colors + 2;
   }
 
   get gameData() {
@@ -48,18 +52,10 @@ class Game {
     };
   }
 
-  setGameData({
-    lvl,
-    colors,
-    bottleParts,
-    bottlesCount,
-    bottles,
-    history,
-  }: GameData) {
+  setGameData({ lvl, colors, bottleParts, bottles, history }: GameData) {
     this.lvl = lvl;
     this.colors = colors;
     this.bottleParts = bottleParts;
-    this.bottlesCount = bottlesCount;
     this.bottles = Array.isArray(bottles) ? bottles : JSON.parse(bottles);
     this.history = Array.isArray(history) ? history : JSON.parse(history);
   }
@@ -78,7 +74,19 @@ class Game {
 
   setLvl(lvl: number) {
     this.lvl = lvl;
+    this.increaseDifficulty(lvl);
     this.setBottles();
+  }
+
+  increaseDifficulty(lvl: number) {
+    if (lvl < 4) this.bottleParts += 1;
+    if (lvl === 5) this.colors += 1;
+    if (lvl % 10 === 0 && this.colors < COLORS.length) {
+      this.colors += 1;
+      return;
+    }
+
+    if (lvl % 15 === 0) this.bottleParts += 1;
   }
 
   setBottles(bottles?: BottleType[]) {
@@ -91,10 +99,9 @@ class Game {
     this.bottles.push([]);
   }
 
-  setSettings({ colors, bottleParts, bottlesCount }: SetSettingsParams) {
+  setSettings({ colors, bottleParts }: SetSettingsParams) {
     this.colors = colors;
     this.bottleParts = bottleParts;
-    this.bottlesCount = bottlesCount;
     this.clearHistory();
     this.setBottles();
   }

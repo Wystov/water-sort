@@ -6,6 +6,7 @@ import { DocumentCheckIcon } from '@heroicons/react/24/outline';
 
 import { AuthForm } from '@/components/AuthForm';
 import { loadFromCloud, saveToCloud } from '@/services/firebase/store';
+import { game } from '@/store/Game';
 import { user } from '@/store/User';
 
 const handleSave = () =>
@@ -41,6 +42,7 @@ export const Account = observer(function Account() {
         <DocumentCheckIcon style={{ height: '24' }} />
         {wins}
       </div>
+      <button onClick={() => game.reset()}>Reset progress</button>
       <Link to="/">Back</Link>
     </div>
   );
