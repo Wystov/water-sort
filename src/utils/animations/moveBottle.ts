@@ -16,12 +16,15 @@ export const moveBottle = (
   };
 
   const isTargetOnTheLeft = from.x - to.x > 0;
+  const isTargetOnTop = from.y - to.y > 0;
 
   if (isTargetOnTheLeft) {
     c.x = -c.x;
     c.rotate = [-45, -90];
     c.transformOrigin = 'top left';
   }
+
+  if (isTargetOnTop) c.y = -c.y - height / 2.5;
 
   const animation: Keyframe[] = [
     {
