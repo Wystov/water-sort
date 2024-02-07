@@ -1,5 +1,5 @@
 import localforage from 'localforage';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 
 import { game } from '@/store/Game';
 import { user } from '@/store/User';

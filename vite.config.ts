@@ -6,11 +6,14 @@ import react from '@vitejs/plugin-react';
 
 import { manifestForPlugIn } from './manifest';
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [react(), VitePWA(manifestForPlugIn)],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
   },
-});
+  build: {
+    sourcemap: mode === 'development',
+  },
+}));
