@@ -15,7 +15,8 @@ import { isPourAllowed } from '@/utils/isPourAllowed';
 import styles from './Game.module.scss';
 
 export const Game = observer(function Game() {
-  const { bottleParts, lvl, bottles, bottlesWithCount } = game;
+  const { bottleParts, lvl, bottles, bottlesWithCount, rewardValue, isWon } =
+    game;
 
   const [fromBottom, setFromBottom] = useState(false);
 
@@ -79,9 +80,12 @@ export const Game = observer(function Game() {
     }
   };
 
+  let headerText = `Lvl ${lvl}`;
+  if (isWon) headerText += ` is solved! +${rewardValue} coins.`;
+
   return (
     <main>
-      <h1 style={{ textAlign: 'center' }}>Lvl {lvl}</h1>
+      <h1 style={{ textAlign: 'center' }}>{headerText}</h1>
       <GameControls
         resetPourFrom={resetPourFrom}
         fromBottom={fromBottom}

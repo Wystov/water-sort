@@ -21,7 +21,7 @@ export const GameControls = observer(function GameControls({
   fromBottom,
   setFromBottom,
 }: GameControlsProps) {
-  const { lvl, isWon, history, rewardValue } = game;
+  const { lvl, isWon, history } = game;
   const { perks } = user;
 
   const handleReset = () => {
@@ -66,9 +66,15 @@ export const GameControls = observer(function GameControls({
 
   return (
     <div className={styles.controls}>
+      <button
+        onClick={handleReset}
+        className={styles.controlsButton}
+        title="Restart"
+      >
+        <ArrowPathIcon />
+      </button>
       {isWon ? (
         <>
-          <p>Solved! +{rewardValue} coins.</p>
           <button
             onClick={handleWin}
             className={styles.controlsButton}
@@ -79,13 +85,6 @@ export const GameControls = observer(function GameControls({
         </>
       ) : (
         <>
-          <button
-            onClick={handleReset}
-            className={styles.controlsButton}
-            title="Restart"
-          >
-            <ArrowPathIcon />
-          </button>
           <button
             onClick={handleBackInHistory}
             className={styles.controlsButton}
