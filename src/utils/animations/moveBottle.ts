@@ -30,20 +30,24 @@ export const moveBottle = (
     {
       transform: `translate(0, -15px)`,
       transformOrigin: c.transformOrigin,
+      zIndex: 2,
     },
     {
       transform: `translate(${c.x}px, ${c.y}px) rotate(${c.rotate[0]}deg)`,
       transformOrigin: c.transformOrigin,
       offset: 0.2,
+      zIndex: 2,
     },
     {
       transform: `translate(${c.x}px, ${c.y}px) rotate(${c.rotate[1]}deg)`,
       transformOrigin: c.transformOrigin,
       offset: 0.8,
+      zIndex: 2,
     },
     {
       transform: `translate(0) rotate(0)`,
       transformOrigin: c.transformOrigin,
+      zIndex: 1,
     },
   ];
   const options: KeyframeAnimationOptions = {
