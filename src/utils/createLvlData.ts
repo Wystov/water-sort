@@ -13,7 +13,6 @@ export const createLvlData = (
 
   do {
     const fillList = [...COLORS]
-      .sort(() => Math.random() - 0.5)
       .slice(0, colorsCount)
       .flatMap((color) => Array(bottleParts).fill(color));
     const shuffledArray = shuffleArray(fillList);
