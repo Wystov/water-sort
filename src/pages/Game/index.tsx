@@ -3,12 +3,14 @@ import { observer } from 'mobx-react-lite';
 
 import { Bottle } from '@/components/Bottle';
 import { GameControls } from '@/components/GameControls';
+import { winMessages } from '@/constants';
 import { game } from '@/store/Game';
 import { user } from '@/store/User';
 import { handleBottleClickType, pourFromType } from '@/types';
 import { handleAnimation } from '@/utils/animations/handleAnimation';
 import { moveBottle } from '@/utils/animations/moveBottle';
 import { select } from '@/utils/animations/select';
+import { getRandomNumber } from '@/utils/getRandomNumber';
 import { debouncedSaveUserData } from '@/utils/indexDB';
 import { isPourAllowed } from '@/utils/isPourAllowed';
 
@@ -80,12 +82,12 @@ export const Game = observer(function Game() {
     }
   };
 
-  let headerText = `Lvl ${lvl}`;
-  if (isWon) headerText += ` is solved! +${rewardValue} coins.`;
+  const winGreeting = winMessages[getRandomNumber(winMessages.length - 1)];
+  const winText = `${winGreeting} +${rewardValue} coins.`;
 
   return (
     <main>
-      <h1 style={{ textAlign: 'center' }}>{headerText}</h1>
+      <h1 style={{ textAlign: 'center' }}>{isWon ? winText : `Lvl ${lvl}`}</h1>
       <GameControls
         resetPourFrom={resetPourFrom}
         fromBottom={fromBottom}
