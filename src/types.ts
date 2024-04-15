@@ -64,3 +64,8 @@ export type FirebaseData = {
   gameData: GameData;
   userData: UserData;
 };
+
+export type ButtonProps = {
+  children: React.ReactNode;
+  onClick: () => void;
+};
