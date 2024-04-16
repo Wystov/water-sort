@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { XCircleIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 
+import { Button } from '@/components/UI/Button';
 import { game } from '@/store/Game';
 
 import styles from './Settings.module.scss';
@@ -57,6 +58,7 @@ export const Settings = observer(function Settings() {
           </button>
         </div>
       </form>
+      <Button onClick={() => game.reset()}>Reset progress</Button>
     </main>
   );
 });

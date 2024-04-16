@@ -2,12 +2,17 @@ import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import { DocumentCheckIcon } from '@heroicons/react/24/outline';
+import {
+  CloudArrowDownIcon,
+  CloudArrowUpIcon,
+} from '@heroicons/react/24/outline';
 
 import { AuthForm } from '@/components/AuthForm';
+import { Button } from '@/components/UI/Button';
 import { loadFromCloud, saveToCloud } from '@/services/firebase/store';
-import { game } from '@/store/Game';
 import { user } from '@/store/User';
+
+import styles from './Account.module.scss';
 
 const handleSave = () =>
   toast.promise(saveToCloud, {
@@ -27,23 +32,30 @@ export const Account = observer(function Account() {
   const { profile, wins } = user;
 
   return (
-    <div>
-      {profile && (
-        <div>
-          <img src={profile.photoURL ?? ''} style={{ borderRadius: '50%' }} />
-          <div>{profile.displayName ?? 'Not signed in'}</div>
-          <button onClick={handleSave}>Save</button>
-          <button onClick={handleLoad}>Load</button>
-        </div>
+    <div className={styles.container}>
+      {profile?.photoURL && (
+        <img src={profile.photoURL} className={styles.avatar} />
       )}
-      <AuthForm />
-      <p>Stats:</p>
-      <div>
-        <DocumentCheckIcon style={{ height: '24' }} />
-        {wins}
+      <div className={styles.name}>{profile?.displayName ?? 'Anonymous'}</div>
+      <div>Wins: {wins}</div>
+      <div className={styles.btnContainer}>
+        {profile && (
+          <>
+            <Button onClick={handleSave}>
+              <CloudArrowDownIcon />
+              Save
+            </Button>
+            <Button onClick={handleLoad}>
+              <CloudArrowUpIcon />
+              Load
+            </Button>
+          </>
+        )}
       </div>
-      <button onClick={() => game.reset()}>Reset progress</button>
-      <Link to="/">Back</Link>
+      <AuthForm />
+      <Link to="/" className={styles.linkOk}>
+        ✓
+      </Link>
     </div>
   );
 });
