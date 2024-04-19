@@ -10,4 +10,6 @@ body {
   place-items: center;
   grid-template-rows: 75px 1fr;
   background-color: #16161a;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
