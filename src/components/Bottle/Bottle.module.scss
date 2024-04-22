@@ -1,4 +1,5 @@
 .bottle {
+  box-sizing: border-box;
   cursor: pointer;
   position: relative;
   z-index: 1;
@@ -10,10 +11,12 @@
   background-color: transparent;
   padding-top: 20px;
   border: 5px solid #94a1b2;
-  border-top: none;
+  border-top-width: 0;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
   overflow: hidden;
+  transition: border-width 0.3s;
+  transition-delay: 0.2s;
 
   & .fill {
     flex-grow: 1;
@@ -24,5 +27,6 @@
     width: 30px;
     height: 140px;
     border-width: 3px;
+    border-top-width: 0;
   }
 }

@@ -14,10 +14,16 @@ export const Bottle = observer(function Bottle({
 }: BottleProps) {
   const bottleRef = useRef<HTMLDivElement | null>(null);
 
+  const isSorted = bottle.length === 1 && bottle[0].count === bottleParts;
+
   return (
     <div
-      onClick={() => handleBottleClick(i, bottleRef)}
+      onClick={isSorted ? undefined : () => handleBottleClick(i, bottleRef)}
       className={styles.bottle}
+      style={{
+        cursor: isSorted ? 'default' : 'pointer',
+        borderTopWidth: isSorted ? '10px' : '0',
+      }}
       ref={bottleRef}
     >
       <AnimatePresence>
