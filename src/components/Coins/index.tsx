@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 
 import { BanknotesIcon } from '@heroicons/react/24/outline';
 
+import { useRouteProtection } from '@/hooks/useRouteProtection';
 import { user } from '@/store/User';
 
 import styles from './Coins.module.scss';
@@ -17,8 +18,10 @@ export const Coins = observer(function Coins() {
 
   animate(counter, coins);
 
+  const handleProtect = useRouteProtection();
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={handleProtect}>
       <BanknotesIcon className={styles.icon} />
       <m.div>{displayedCounter}</m.div>
     </div>
