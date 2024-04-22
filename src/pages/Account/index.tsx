@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react-lite';
-import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import {
@@ -9,6 +8,7 @@ import {
 
 import { AuthForm } from '@/components/AuthForm';
 import { Button } from '@/components/UI/Button';
+import { LinkOK } from '@/components/UI/LinkOK';
 import { loadFromCloud, saveToCloud } from '@/services/firebase/store';
 import { user } from '@/store/User';
 
@@ -53,9 +53,7 @@ export const Account = observer(function Account() {
         )}
       </div>
       <AuthForm />
-      <Link to="/" className={styles.linkOk}>
-        ✓
-      </Link>
+      <LinkOK />
     </div>
   );
 });

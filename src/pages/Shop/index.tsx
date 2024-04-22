@@ -1,38 +1,52 @@
 import { observer } from 'mobx-react-lite';
-import { Link } from 'react-router-dom';
 
-import { PERK_COST } from '@/constants';
+import { Button } from '@/components/UI/Button';
+import { CartCard } from '@/components/UI/CartCard.tsx';
+import { LinkOK } from '@/components/UI/LinkOK';
+import { PERK_DESCRIPTION } from '@/constants';
 import { user } from '@/store/User';
+
+import styles from './Shop.module.scss';
 
 export const Shop = observer(function Shop() {
   const { perks, coins } = user;
 
-  const handleBuy = (perk: keyof typeof PERK_COST) => {
-    if (coins < PERK_COST[perk]) return;
-    user.decreaseCoins(PERK_COST[perk]);
+  const handleBuy = (perk: keyof typeof PERK_DESCRIPTION) => {
+    const { cost } = PERK_DESCRIPTION[perk];
+    if (coins < cost) return;
+    user.decreaseCoins(cost);
     user.addPerk(perk);
   };
 
   return (
     <main>
-      <h1>Shop</h1>
-      <ul>
-        {Object.entries(perks).map(([perkName, value]) => {
-          const perk = perkName as keyof typeof perks;
-          return (
-            <li key={perk}>
-              {perk}: {value}
-              <button
-                onClick={() => handleBuy(perk)}
-                disabled={coins < PERK_COST[perk]}
-              >
-                Buy for {PERK_COST[perk]}
-              </button>
-            </li>
-          );
-        })}
-      </ul>
-      <Link to="/">Back</Link>
+      <div className={styles.container}>
+        <h2 className={styles.header}>Shop</h2>
+        <div className={styles.innerContainer}>
+          {Object.entries(PERK_DESCRIPTION).map(
+            ([perk, { title, icon, cost }]) => {
+              const perkKey = perk as keyof typeof perks;
+              const userHasCount = perks[perkKey];
+
+              return (
+                <Button
+                  key={perk}
+                  onClick={() => handleBuy(perkKey)}
+                  disabled={coins < cost}
+                >
+                  <CartCard
+                    icon={icon}
+                    title={title}
+                    userHasCount={userHasCount}
+                    cost={cost}
+                  />
+                </Button>
+              );
+            }
+          )}
+        </div>
+        <LinkOK />
+      </div>
     </main>
   );
 });

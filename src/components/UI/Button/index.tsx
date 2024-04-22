@@ -7,9 +7,10 @@ import styles from './Button.module.scss';
 export const Button = observer(function Button({
   children,
   onClick,
+  disabled,
 }: ButtonProps) {
   return (
-    <button className={styles.button} onClick={onClick}>
+    <button className={styles.button} onClick={onClick} disabled={disabled}>
       {children}
     </button>
   );

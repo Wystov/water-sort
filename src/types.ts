@@ -68,4 +68,12 @@ export type FirebaseData = {
 export type ButtonProps = {
   children: React.ReactNode;
   onClick: () => void;
+  disabled?: boolean;
+};
+
+export type CartCardProps = {
+  title: string;
+  cost: number;
+  userHasCount: number;
+  icon: (size?: string) => JSX.Element;
 };
