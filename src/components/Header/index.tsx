@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 import {
   ArrowLeftEndOnRectangleIcon,
-  Cog6ToothIcon,
   ShoppingCartIcon,
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
@@ -29,9 +28,6 @@ export const Header = observer(function Header() {
         </Link>
         <Link to="/shop" title="Shop">
           <ShoppingCartIcon className={styles.btn} />
-        </Link>
-        <Link to="/settings" title="Settings">
-          <Cog6ToothIcon className={styles.btn} />
         </Link>
       </div>
     </header>

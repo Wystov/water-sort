@@ -67,8 +67,9 @@ export type FirebaseData = {
 
 export type ButtonProps = {
   children: React.ReactNode;
-  onClick: () => void;
+  onClick: (event?: React.FormEvent<HTMLFormElement>) => void;
   disabled?: boolean;
+  type?: 'submit';
 };
 
 export type CartCardProps = {
@@ -76,4 +77,21 @@ export type CartCardProps = {
   cost: number;
   userHasCount: number;
   icon: (size?: string) => JSX.Element;
+};
+
+export type solverFormSubmit = (
+  e: React.FormEvent<HTMLFormElement>,
+  {
+    parts,
+    bottlesCount,
+    colorsCount,
+  }: {
+    parts: number;
+    bottlesCount: number;
+    colorsCount: number;
+  }
+) => void;
+
+export type SolverFormProps = {
+  handleSubmit: solverFormSubmit;
 };

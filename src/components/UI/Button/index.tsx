@@ -8,9 +8,15 @@ export const Button = observer(function Button({
   children,
   onClick,
   disabled,
+  type,
 }: ButtonProps) {
   return (
-    <button className={styles.button} onClick={onClick} disabled={disabled}>
+    <button
+      type={type ?? 'button'}
+      className={styles.button}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {children}
     </button>
   );
