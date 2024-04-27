@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import { toast } from 'react-toastify';
 
 import { Button } from '@/components/UI/Button';
 import { CartCard } from '@/components/UI/CartCard.tsx';
@@ -16,6 +17,7 @@ export const Shop = observer(function Shop() {
     if (coins < cost) return;
     user.decreaseCoins(cost);
     user.addPerk(perk);
+    toast.success(`+1 ${PERK_DESCRIPTION[perk].title}!`);
   };
 
   return (
