@@ -6,6 +6,7 @@ import {
   ShoppingCartIcon,
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
+import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 
 import { Coins } from '@/components/Coins';
 import { user } from '@/store/User';
@@ -28,6 +29,9 @@ export const Header = observer(function Header() {
         </Link>
         <Link to="/shop" title="Shop">
           <ShoppingCartIcon className={styles.btn} />
+        </Link>
+        <Link to="help" title="Help">
+          <QuestionMarkCircleIcon className={styles.btn} />
         </Link>
       </div>
     </header>

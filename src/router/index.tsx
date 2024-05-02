@@ -6,6 +6,7 @@ import { Layout } from '@/components/Layout';
 import { Loader } from '@/components/UI/Loader';
 import { Account } from '@/pages/Account';
 import { Game } from '@/pages/Game';
+import { Help } from '@/pages/Help';
 import { Shop } from '@/pages/Shop';
 
 const LazySolverPage = observer(function SolverPage() {
@@ -40,6 +41,7 @@ export const router = createBrowserRouter([
         element: <LazySolverPage />,
         path: '/solver',
       },
+      { element: <Help />, path: '/help' },
     ],
   },
 ]);

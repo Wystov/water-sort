@@ -8,7 +8,7 @@ export const useRouteProtection = () => {
   const handleProtect = () => {
     setClicks(clicks + 1);
 
-    if (clicks > 3) {
+    if (clicks > 18) {
       setClicks(0);
       return navigate('/solver', { state: { access: true } });
     }
