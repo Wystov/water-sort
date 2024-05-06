@@ -11,6 +11,8 @@ import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import { Coins } from '@/components/Coins';
 import { user } from '@/store/User';
 
+import { Logo } from '../UI/Logo';
+
 import styles from './Header.module.scss';
 
 export const Header = observer(function Header() {
@@ -19,6 +21,8 @@ export const Header = observer(function Header() {
   return (
     <header className={styles.header}>
       <Coins />
+      <Logo />
+
       <div className={styles.linksContainer}>
         <Link to="/account" title="Account">
           {profile ? (

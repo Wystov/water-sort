@@ -23,7 +23,7 @@ export const Coins = observer(function Coins() {
   return (
     <div className={styles.container} onClick={handleProtect}>
       <BanknotesIcon className={styles.icon} />
-      <m.div>{displayedCounter}</m.div>
+      <m.div className={styles.counter}>{displayedCounter}</m.div>
     </div>
   );
 });
