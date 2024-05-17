@@ -67,7 +67,9 @@ export type FirebaseData = {
 
 export type ButtonProps = {
   children: React.ReactNode;
-  onClick: (event?: React.FormEvent<HTMLFormElement>) => void;
+  onClick: (
+    event?: React.FormEvent<HTMLFormElement | HTMLButtonElement>
+  ) => void;
   disabled?: boolean;
   type?: 'submit';
 };
