@@ -15,6 +15,17 @@ export const Solver = observer(function Solver() {
 
   if (!state?.access) return <Navigate to="/" />;
 
+  // example use
+  // const handleSolver = () => {
+  //   console.time('solver');
+  //   const { isSolvable, moves, stackCount } = solver(
+  //     toJS(game.bottles),
+  //     game.bottleParts
+  //   );
+  //   console.timeEnd('solver');
+  //   console.log('solvable:', isSolvable, 'tries:', stackCount, 'moves:', moves);
+  // };
+
   const handleSubmit: solverFormSubmit = (
     e,
     { parts, bottlesCount, colorsCount }

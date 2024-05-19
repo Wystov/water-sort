@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 
 import { LinkOK } from '@/components/UI/LinkOK';
+import { PERK_DESCRIPTION } from '@/constants';
 
 import styles from './Help.module.scss';
 
@@ -43,14 +44,12 @@ export const Help = observer(function Help() {
           </li>
         </ol>
         <h2>Abilities</h2>
-        <ul>
-          <li>Icon Move back one step if you make a mistake</li>
-          <li>
-            Pour from bottom: Pour water from the bottom of a bottle once.
-          </li>
-          <li>
-            Add bottle: Add an extra empty bottle to help solve the puzzle
-          </li>
+        <ul className={styles.listWithIcons}>
+          {Object.entries(PERK_DESCRIPTION).map(([key, perk]) => (
+            <li key={key} className={styles.listItemWithIcon}>
+              {perk.icon()} {perk.description}
+            </li>
+          ))}
         </ul>
       </div>
       <LinkOK />
