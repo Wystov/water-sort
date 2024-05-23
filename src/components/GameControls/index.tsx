@@ -1,19 +1,12 @@
-// import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 
-import {
-  ArrowDownCircleIcon,
-  ArrowLeftCircleIcon,
-  ArrowPathIcon,
-  ForwardIcon,
-  PlusCircleIcon,
-} from '@heroicons/react/24/outline';
+import { ArrowPathIcon, ForwardIcon } from '@heroicons/react/24/outline';
 
+import { PERK_DESCRIPTION } from '@/constants';
 import { game } from '@/store/Game';
 import { user } from '@/store/User';
 import { GameControlsProps } from '@/types';
 
-// import { solver } from '@/utils/solver';
 import styles from './GameControls.module.scss';
 
 export const GameControls = observer(function GameControls({
@@ -22,7 +15,7 @@ export const GameControls = observer(function GameControls({
   setFromBottom,
 }: GameControlsProps) {
   const { lvl, isWon, history } = game;
-  const { perks } = user;
+  const { perks: perkStore } = user;
 
   const handleReset = () => {
     resetPourFrom();
@@ -34,35 +27,40 @@ export const GameControls = observer(function GameControls({
     game.clearHistory();
     game.setLvl(lvl + 1);
   };
-  const handleBackInHistory = () => {
-    if (perks.moveBack === 0) return;
+  const handleMoveBack = () => {
+    if (perkStore.moveBack === 0) return;
 
     game.backInHistory();
     user.decreasePerk('moveBack');
   };
 
-  const handleWaterFromBottom = () => {
+  const handlePourFromBottom = () => {
     setFromBottom(!fromBottom);
   };
 
   const handleAddBottle = () => {
-    if (perks.addBottle === 0) return;
+    if (perkStore.addBottle === 0) return;
 
     game.addBottle();
     user.decreasePerk('addBottle');
   };
 
-  // TODO: add help btn that calculates next move from solver
+  const perksWithFuncs = {
+    moveBack: {
+      func: handleMoveBack,
+      disabled: !history.length || perkStore.moveBack === 0,
+    },
+    pourFromBottom: {
+      func: handlePourFromBottom,
+      disabled: !fromBottom && perkStore.pourFromBottom === 0,
+    },
+    addBottle: {
+      func: handleAddBottle,
+      disabled: perkStore.addBottle === 0,
+    },
+  };
 
-  // const handleSolver = () => {
-  //   console.time('solver');
-  //   const { isSolvable, moves, stackCount } = solver(
-  //     toJS(game.bottles),
-  //     game.bottleParts
-  //   );
-  //   console.timeEnd('solver');
-  //   console.log('solvable:', isSolvable, 'tries:', stackCount, 'moves:', moves);
-  // };
+  // TODO: add help btn that calculates next move from solver
 
   return (
     <div className={styles.controls}>
@@ -85,33 +83,28 @@ export const GameControls = observer(function GameControls({
         </>
       ) : (
         <>
-          <button
-            onClick={handleBackInHistory}
-            className={styles.controlsButton}
-            disabled={!history.length || perks.moveBack === 0}
-            title="Move back"
-          >
-            {perks.moveBack}
-            <ArrowLeftCircleIcon />
-          </button>
-          <button
-            onClick={handleWaterFromBottom}
-            className={styles.controlsButton}
-            title="Pour from bottom"
-            disabled={!fromBottom && perks.pourFromBottom === 0}
-          >
-            {perks.pourFromBottom}
-            <ArrowDownCircleIcon style={{ color: fromBottom ? 'green' : '' }} />
-          </button>
-          <button
-            onClick={handleAddBottle}
-            className={styles.controlsButton}
-            title="Add bottle"
-            disabled={perks.addBottle === 0}
-          >
-            {perks.addBottle}
-            <PlusCircleIcon />
-          </button>
+          {Object.entries(PERK_DESCRIPTION).map(([key, { title, icon }]) => {
+            const typedKey = key as keyof typeof perkStore;
+            const { func, disabled } =
+              perksWithFuncs[typedKey as keyof typeof perksWithFuncs];
+            const iconParams =
+              key === 'pourFromBottom' && fromBottom
+                ? { color: 'green' }
+                : undefined;
+
+            return (
+              <button
+                onClick={func}
+                key={key}
+                className={styles.controlsButton}
+                disabled={disabled}
+                title={title}
+              >
+                {perkStore[typedKey]}
+                {icon(iconParams)}
+              </button>
+            );
+          })}
         </>
       )}
     </div>

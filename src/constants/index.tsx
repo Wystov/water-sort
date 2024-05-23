@@ -30,24 +30,24 @@ export const PERK_DESCRIPTION = {
     title: 'Move back',
     description: 'Move back one step if you make a mistake',
     cost: 10,
-    icon: (size = '32px') => (
-      <ArrowLeftCircleIcon style={{ height: size, width: size }} />
+    icon: ({ size = '32px', color = 'white' } = {}) => (
+      <ArrowLeftCircleIcon style={{ height: size, width: size, color }} />
     ),
   },
   pourFromBottom: {
     title: 'Pour from bottom',
     description: 'Pour water from the bottom of selected bottle once',
     cost: 50,
-    icon: (size = '32px') => (
-      <ArrowDownCircleIcon style={{ height: size, width: size }} />
+    icon: ({ size = '32px', color = 'white' } = {}) => (
+      <ArrowDownCircleIcon style={{ height: size, width: size, color }} />
     ),
   },
   addBottle: {
     title: 'Add bottle',
     description: 'Add an extra empty bottle to help solve the puzzle',
     cost: 100,
-    icon: (size = '32px') => (
-      <PlusCircleIcon style={{ height: size, width: size }} />
+    icon: ({ size = '32px', color = 'white' } = {}) => (
+      <PlusCircleIcon style={{ height: size, width: size, color }} />
     ),
   },
 } as const;
