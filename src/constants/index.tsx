@@ -30,7 +30,7 @@ export const PERK_DESCRIPTION = {
     title: 'Move back',
     description: 'Move back one step if you make a mistake',
     cost: 10,
-    icon: ({ size = '32px', color = 'white' } = {}) => (
+    getIcon: ({ size = '32px', color = 'white' } = {}) => (
       <ArrowLeftCircleIcon style={{ height: size, width: size, color }} />
     ),
   },
@@ -38,7 +38,7 @@ export const PERK_DESCRIPTION = {
     title: 'Pour from bottom',
     description: 'Pour water from the bottom of selected bottle once',
     cost: 50,
-    icon: ({ size = '32px', color = 'white' } = {}) => (
+    getIcon: ({ size = '32px', color = 'white' } = {}) => (
       <ArrowDownCircleIcon style={{ height: size, width: size, color }} />
     ),
   },
@@ -46,7 +46,7 @@ export const PERK_DESCRIPTION = {
     title: 'Add bottle',
     description: 'Add an extra empty bottle to help solve the puzzle',
     cost: 100,
-    icon: ({ size = '32px', color = 'white' } = {}) => (
+    getIcon: ({ size = '32px', color = 'white' } = {}) => (
       <PlusCircleIcon style={{ height: size, width: size, color }} />
     ),
   },

@@ -26,7 +26,7 @@ export const Shop = observer(function Shop() {
         <h2 className={styles.header}>Shop</h2>
         <div className={styles.innerContainer}>
           {Object.entries(PERK_DESCRIPTION).map(
-            ([perk, { title, icon, cost }]) => {
+            ([perk, { title, getIcon, cost }]) => {
               const perkKey = perk as keyof typeof perks;
               const userHasCount = perks[perkKey];
 
@@ -37,7 +37,7 @@ export const Shop = observer(function Shop() {
                   disabled={coins < cost}
                 >
                   <CartCard
-                    icon={icon}
+                    icon={getIcon()}
                     title={title}
                     userHasCount={userHasCount}
                     cost={cost}

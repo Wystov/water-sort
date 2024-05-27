@@ -47,7 +47,7 @@ export const Help = observer(function Help() {
         <ul className={styles.listWithIcons}>
           {Object.entries(PERK_DESCRIPTION).map(([key, perk]) => (
             <li key={key} className={styles.listItemWithIcon}>
-              {perk.icon()} {perk.description}
+              {perk.getIcon()} {perk.description}
             </li>
           ))}
         </ul>

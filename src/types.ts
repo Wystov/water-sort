@@ -78,7 +78,7 @@ export type CartCardProps = {
   title: string;
   cost: number;
   userHasCount: number;
-  icon: (size?: string) => JSX.Element;
+  icon: JSX.Element;
 };
 
 export type solverFormSubmit = (

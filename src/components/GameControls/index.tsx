@@ -83,7 +83,7 @@ export const GameControls = observer(function GameControls({
         </>
       ) : (
         <>
-          {Object.entries(PERK_DESCRIPTION).map(([key, { title, icon }]) => {
+          {Object.entries(PERK_DESCRIPTION).map(([key, { title, getIcon }]) => {
             const typedKey = key as keyof typeof perkStore;
             const { func, disabled } =
               perksWithFuncs[typedKey as keyof typeof perksWithFuncs];
@@ -101,7 +101,7 @@ export const GameControls = observer(function GameControls({
                 title={title}
               >
                 {perkStore[typedKey]}
-                {icon(iconParams)}
+                {getIcon(iconParams)}
               </button>
             );
           })}

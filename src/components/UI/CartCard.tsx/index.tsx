@@ -15,7 +15,7 @@ export const CartCard = observer(function CartCard({
   return (
     <>
       <div className={styles.container}>
-        {icon()}
+        {icon}
         <div className={styles.innerContainer}>
           <span className={styles.title}>{title}</span>
           <span>You have {userHasCount}</span>
