@@ -4,6 +4,11 @@
   align-items: center;
   justify-content: flex-start;
 
+  @media (max-width: 450px) {
+    order: 1;
+    grid-row: 1 / span 2;
+  }
+
   & img {
     width: 60px;
     text-transform: uppercase;
