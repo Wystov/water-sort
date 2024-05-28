@@ -5,6 +5,10 @@ export type handleBottleClickType = (
   bottleRef: React.MutableRefObject<HTMLDivElement | null>
 ) => void;
 
+export type GameFieldProps = {
+  handleBottleClick: handleBottleClickType;
+};
+
 export type BottleProps = {
   i: number;
   bottle: BottleColorsCountType[];

@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { Bottle } from '@/components/Bottle';
 import { GameControls } from '@/components/GameControls';
+import { GameField } from '@/components/GameField';
 import { winMessages } from '@/constants';
 import { game } from '@/store/Game';
 import { user } from '@/store/User';
@@ -14,11 +14,8 @@ import { getRandomNumber } from '@/utils/getRandomNumber';
 import { debouncedSaveUserData } from '@/utils/indexDB';
 import { isPourAllowed } from '@/utils/isPourAllowed';
 
-import styles from './Game.module.scss';
-
 export const Game = observer(function Game() {
-  const { bottleParts, lvl, bottles, bottlesWithCount, rewardValue, isWon } =
-    game;
+  const { bottleParts, lvl, bottles, rewardValue, isWon } = game;
 
   const [fromBottom, setFromBottom] = useState(false);
 
@@ -93,17 +90,7 @@ export const Game = observer(function Game() {
         fromBottom={fromBottom}
         setFromBottom={setFromBottom}
       />
-      <div className={styles.field}>
-        {bottlesWithCount.map((bottle, i) => (
-          <Bottle
-            key={i}
-            i={i}
-            bottle={bottle}
-            handleBottleClick={handleBottleClick}
-            bottleParts={bottleParts}
-          />
-        ))}
-      </div>
+      <GameField handleBottleClick={handleBottleClick} />
     </main>
   );
 });
