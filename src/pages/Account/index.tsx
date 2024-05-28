@@ -39,7 +39,7 @@ export const Account = observer(function Account() {
   };
 
   return (
-    <div className={styles.container}>
+    <main className={styles.container}>
       {profile?.photoURL && (
         <img src={profile.photoURL} className={styles.avatar} />
       )}
@@ -63,6 +63,6 @@ export const Account = observer(function Account() {
       )}
       <AuthForm />
       <LinkOK />
-    </div>
+    </main>
   );
 });

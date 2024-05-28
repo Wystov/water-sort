@@ -37,9 +37,9 @@ export const Solver = observer(function Solver() {
   };
 
   return (
-    <div className={styles.container}>
+    <main className={styles.container}>
       <SolverForm handleSubmit={handleSubmit} />
       <div>{solverResult}</div>
-    </div>
+    </main>
   );
 });

@@ -21,34 +21,32 @@ export const Shop = observer(function Shop() {
   };
 
   return (
-    <main>
-      <div className={styles.container}>
-        <h2 className={styles.header}>Shop</h2>
-        <div className={styles.innerContainer}>
-          {Object.entries(PERK_DESCRIPTION).map(
-            ([perk, { title, getIcon, cost }]) => {
-              const perkKey = perk as keyof typeof perks;
-              const userHasCount = perks[perkKey];
+    <main className={styles.container}>
+      <h2 className={styles.header}>Shop</h2>
+      <div className={styles.innerContainer}>
+        {Object.entries(PERK_DESCRIPTION).map(
+          ([perk, { title, getIcon, cost }]) => {
+            const perkKey = perk as keyof typeof perks;
+            const userHasCount = perks[perkKey];
 
-              return (
-                <Button
-                  key={perk}
-                  onClick={() => handleBuy(perkKey)}
-                  disabled={coins < cost}
-                >
-                  <CartCard
-                    icon={getIcon()}
-                    title={title}
-                    userHasCount={userHasCount}
-                    cost={cost}
-                  />
-                </Button>
-              );
-            }
-          )}
-        </div>
-        <LinkOK />
+            return (
+              <Button
+                key={perk}
+                onClick={() => handleBuy(perkKey)}
+                disabled={coins < cost}
+              >
+                <CartCard
+                  icon={getIcon()}
+                  title={title}
+                  userHasCount={userHasCount}
+                  cost={cost}
+                />
+              </Button>
+            );
+          }
+        )}
       </div>
+      <LinkOK />
     </main>
   );
 });
