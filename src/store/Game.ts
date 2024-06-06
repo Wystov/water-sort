@@ -128,6 +128,7 @@ class Game {
 }
 
 export const game = new Game();
+export type GameType = typeof game;
 
 reaction(
   () => game.isWon,
