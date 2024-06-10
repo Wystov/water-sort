@@ -17,8 +17,15 @@
     height: 24px;
   }
 
-  &:hover {
-    opacity: 0.7;
+  @media (hover: hover) {
+    &:hover {
+      opacity: 0.7;
+      border-color: white;
+    }
+  }
+
+  &:active {
+    opacity: 0.5;
     border-color: white;
   }
 }

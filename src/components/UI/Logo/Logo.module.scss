@@ -25,8 +25,14 @@
     word-spacing: 100vw;
   }
 
-  &:hover {
-    opacity: 0.7;
+  @media (hover: hover) {
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  &:active {
+    opacity: 0.5;
   }
 
   @media (max-width: 700px) {
