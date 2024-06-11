@@ -2,6 +2,12 @@ import { ArrowDownCircleIcon } from '@heroicons/react/24/outline';
 import { ArrowLeftCircleIcon } from '@heroicons/react/24/outline';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 
+export const DEFAULT_SETTINGS = {
+  lvl: 1,
+  colors: 2,
+  bottleParts: 2,
+};
+
 export const COLORS = [
   '#f9bc60',
   '#abd1c6',

@@ -1,6 +1,6 @@
 import { makeAutoObservable, reaction, toJS } from 'mobx';
 
-import { COLORS } from '@/constants';
+import { COLORS, DEFAULT_SETTINGS } from '@/constants';
 import { BottleType, GameData, SetSettingsParams } from '@/types';
 import { createLvlData } from '@/utils/createLvlData';
 import { getBottleWithCount } from '@/utils/getBottleWithCount';
@@ -10,9 +10,9 @@ import { isSolved } from '@/utils/isSolved';
 import { user } from './User';
 
 class Game {
-  lvl = 1;
-  colors = 2;
-  bottleParts = 2;
+  lvl = DEFAULT_SETTINGS.lvl;
+  colors = DEFAULT_SETTINGS.colors;
+  bottleParts = DEFAULT_SETTINGS.bottleParts;
   bottles: BottleType[] = createLvlData(
     this.bottleParts,
     this.bottlesCount,
@@ -25,9 +25,9 @@ class Game {
   }
 
   reset() {
-    this.lvl = 1;
-    this.colors = 2;
-    this.bottleParts = 2;
+    this.lvl = DEFAULT_SETTINGS.lvl;
+    this.colors = DEFAULT_SETTINGS.colors;
+    this.bottleParts = DEFAULT_SETTINGS.bottleParts;
     this.bottles = createLvlData(
       this.bottleParts,
       this.bottlesCount,
